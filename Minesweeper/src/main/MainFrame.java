@@ -10,6 +10,11 @@ public class MainFrame extends JFrame{
     private GamePanel gPanel = new GamePanel();
     private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel);
     private MainMenuPanel mMPanel = new MainMenuPanel(this);
+
+    public static final byte MAIN_MENU = 0;
+    public static final byte START_NEW_GAME_MENU = 1;
+    public static final byte GAME = 2;
+
     public MainFrame(){
         this.setSize(500,500);
         this.setResizable(false);
@@ -20,13 +25,13 @@ public class MainFrame extends JFrame{
         this.setVisible(true);
     }
 
-    public void setContentPane(int value){
+    public void setContentPane(byte value){
         switch(value){
-            case 0:
+            case MAIN_MENU:
                 this.setContentPane(mMPanel);break;
-            case 1:
+            case START_NEW_GAME_MENU:
                 this.setContentPane(sGMPanel);break;
-            case 2:
+            case GAME:
                 this.setContentPane(gPanel);break;
         }
         this.revalidate();

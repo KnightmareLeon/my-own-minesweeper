@@ -12,7 +12,7 @@ public class BackButton extends MenuButton{
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                mFrame.setContentPane(0);
+                mFrame.setContentPane(MainFrame.MAIN_MENU);
             }
         });
     }

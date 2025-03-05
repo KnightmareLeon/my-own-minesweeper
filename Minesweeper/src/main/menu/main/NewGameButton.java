@@ -13,7 +13,7 @@ public class NewGameButton extends MenuButton{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                mFrame.setContentPane(1);
+                mFrame.setContentPane(MainFrame.START_NEW_GAME_MENU);
             }
             
         });

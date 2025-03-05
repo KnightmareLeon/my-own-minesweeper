@@ -12,9 +12,9 @@ public abstract class StartNewGameButton extends MenuButton{
         this.mFrame = mFrame;
     }
 
-    protected void startNewGame(int size){
-        this.gPanel.setUpButtons(size);
-        mFrame.setContentPane(2);
+    protected void startNewGame(byte difficulty){
+        this.gPanel.setUpButtons(difficulty);
+        mFrame.setContentPane(MainFrame.GAME);
     }
 
 }

@@ -13,7 +13,7 @@ public class StartEasyGameButton extends StartNewGameButton{
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                startNewGame(8);
+                startNewGame(GamePanel.EASY);
             }
         });
     }
