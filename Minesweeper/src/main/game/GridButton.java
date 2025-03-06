@@ -9,9 +9,12 @@ import javax.swing.BorderFactory;
 import main.DefaultButton;
 
 public class GridButton extends DefaultButton{
-    private boolean mine = false;
-    private boolean firstClick = false;
-    public GridButton(GamePanel gPanel){
+    private boolean mine = false; 
+    private byte adjMines = 0;
+    private int row, col;
+    public GridButton(GamePanel gPanel, int row, int col){
+        this.row = row;
+        this.col = col;
         this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         this.addActionListener(new ActionListener() {
             @Override
@@ -20,22 +23,25 @@ public class GridButton extends DefaultButton{
                 setEnabled(false);
                 setBorder(null);
                 if(!gPanel.isFirstClickDone()){
-                    firstClick = true;
                     gPanel.firstClickDone();
-                    gPanel.setMines();
-                }
-                if(hasMine()){
+                    gPanel.setMines(getRow(), getCol());
+                    gPanel.setAllAdjMines(getRow(), getCol());
+                } else if(hasMine()){
                     setText("X");
-                }
+                } else if(adjMines > 0){
+                    setText(Byte.toString(adjMines));
+                } 
             }
         });
     }
 
     public boolean hasMine(){return this.mine;}
-
-    public boolean isFirstClick(){return this.firstClick;}
     
-    public void setMine(){
-        this.mine = true;
-    }
+    public void setMine(){this.mine = true;}
+
+    public int getRow(){return this.row;}
+
+    public int getCol(){return this.col;}
+
+    public void setAdjMines(byte adjMines){this.adjMines = adjMines;}
 }
