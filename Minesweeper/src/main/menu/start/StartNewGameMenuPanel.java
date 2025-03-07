@@ -19,6 +19,6 @@ public class StartNewGameMenuPanel extends MenuPanel{
         this.addButton(nGButton);
         this.addButton(hGButton);
         this.addButton(back);
-        this.setUpFont();
+        this.setUpFont(this);
     }
 }

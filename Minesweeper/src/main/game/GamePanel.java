@@ -1,50 +1,66 @@
 package main.game;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import main.DefaultPanel;
 
 public class GamePanel extends DefaultPanel{
     private GridLayout grid;
-    private boolean firstCLickDone = false;
     private GridButton[][] buttons;
+    private JPanel gridPanel = new JPanel();    
+    private JLabel minesLabel = new JLabel();
+
+    private boolean firstCLickDone = false;
     private byte mines = 0;
+
     public static final byte EASY = 0;
     public static final byte NORMAL = 1;
     public static final byte HARD = 2; 
     
-    private byte difficulty;
+    
 
     public GamePanel(){
-        
+        this.setLayout(new BorderLayout());
+        this.add(minesLabel, BorderLayout.NORTH);
+        this.add(gridPanel, BorderLayout.CENTER);
     }
 
-    public void setUpButtons(byte difficulty){
-        this.difficulty = difficulty;
+    public void setUp(byte difficulty){
         byte size = 0;
         switch(difficulty){
             case EASY:
-                size = 9;
+                size = 9; mines = 10; minesLabel.setText("Mines: 10");
                 break;
             case NORMAL:
-                size = 16;
+                size = 16; mines = 40; minesLabel.setText("Mines: 40");
                 break;
             case HARD: 
-                size = 30;
+                size = 30; mines = 99; minesLabel.setText("Mines: 99");
                 break;
         }
 
         buttons = new GridButton[size][size];
         grid = new GridLayout(size, size);
-        this.setLayout(grid);
+        gridPanel.setLayout(grid);
         for(int row = 0; row < size; row++){
             for(int col = 0; col < size; col++){
                 buttons[row][col] = new GridButton(this, row, col);
-                this.add(buttons[row][col]);
+                gridPanel.add(buttons[row][col]);
             }
         }
-
-        this.setUpFont();
+        switch(difficulty){
+            case EASY:
+            case NORMAL:
+                this.setUpFont(this);
+                break;
+            case HARD:
+                this.setUpFont(this,15);
+                break;
+        }
     }
 
     public boolean isFirstClickDone(){return firstCLickDone;}
@@ -52,18 +68,6 @@ public class GamePanel extends DefaultPanel{
     public void firstClickDone(){this.firstCLickDone = true;}
 
     public void setMines(int rowFirst, int colFirst){
-        switch(this.difficulty){
-            case EASY:
-                mines = 10;
-                break;
-            case NORMAL:
-                mines = 40;
-                break;
-            case HARD:
-                mines = 99;
-                break;
-        }
-
         for(byte mine = 0; mine < mines;){
             int row = (int) (Math.random() * buttons.length);
             int col = (int) (Math.random() * buttons.length);
@@ -71,7 +75,8 @@ public class GamePanel extends DefaultPanel{
             if(!buttons[row][col].hasMine() && row != rowFirst && col != colFirst
                 && !isAdjToFirstClick(buttons[row][col], buttons[rowFirst][colFirst])){
                 buttons[row][col].setMine();
-                mines++;
+                mine++;
+                
             }
         }
     }
@@ -81,7 +86,7 @@ public class GamePanel extends DefaultPanel{
             for(int col = 0; col < buttons.length; col++){
                 byte adjMines = 0;
                 if(buttons[row][col].hasMine() || (row == rowFirst && col == colFirst)){
-                    col++;
+                    continue;
                 } else {
                     for(GridButton adjButton : getAdjacentButtons(buttons[row][col])){
                         if(adjButton != null && adjButton.hasMine()){
@@ -93,7 +98,21 @@ public class GamePanel extends DefaultPanel{
                 
             }
         }
-    } 
+    }
+    
+    public void clearNoAdjMines(int row, int col){
+        GridButton button = buttons[row][col];
+        if(button.getAdjMines() == 0 && !button.hasMine()){
+            for(GridButton adjButton : getAdjacentButtons(button)){
+                if(adjButton != null && adjButton.isEnabled()){
+                    adjButton.doClick();
+                    clearNoAdjMines(adjButton.getRow(), adjButton.getCol());
+                }
+            }
+        } else if(button.getAdjMines() > 0){
+            button.doClick();
+        } 
+    }
 
     public GridButton[] getAdjacentButtons(GridButton button){
         GridButton[] adjacentButtons = new GridButton[8];

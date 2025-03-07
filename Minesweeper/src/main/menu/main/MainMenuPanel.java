@@ -15,6 +15,6 @@ public class MainMenuPanel extends MenuPanel{
         this.addButton(conGameButton);
         this.addButton(newGameButton);
         this.addButton(statsButton);
-        this.setUpFont();
+        this.setUpFont(this);
     }
 }

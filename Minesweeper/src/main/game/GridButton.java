@@ -26,11 +26,14 @@ public class GridButton extends DefaultButton{
                     gPanel.firstClickDone();
                     gPanel.setMines(getRow(), getCol());
                     gPanel.setAllAdjMines(getRow(), getCol());
+                    gPanel.clearNoAdjMines(row, col);
                 } else if(hasMine()){
                     setText("X");
                 } else if(adjMines > 0){
                     setText(Byte.toString(adjMines));
-                } 
+                } else {
+                    gPanel.clearNoAdjMines(row, col);
+                }
             }
         });
     }
@@ -44,4 +47,6 @@ public class GridButton extends DefaultButton{
     public int getCol(){return this.col;}
 
     public void setAdjMines(byte adjMines){this.adjMines = adjMines;}
+
+    public byte getAdjMines(){return this.adjMines;}
 }
