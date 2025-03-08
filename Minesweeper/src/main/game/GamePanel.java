@@ -19,7 +19,6 @@ public class GamePanel extends DefaultPanel{
     private GridLayout grid;
     private GridButton[][] buttons;
     private JPanel gridPanel = new JPanel();    
-    
 
     private boolean firstCLickDone = false;
     private byte mines = 0;
@@ -39,6 +38,7 @@ public class GamePanel extends DefaultPanel{
 
     public void setUp(byte difficulty){
         gridPanel.removeAll();
+        firstCLickDone = false;
         byte size = 0;
         switch(difficulty){
             case EASY:
@@ -114,7 +114,7 @@ public class GamePanel extends DefaultPanel{
         if(!button.hasMine()){
             for(GridButton adjButton : getAdjacentButtons(button)){
                 if(adjButton != null && adjButton.isEnabled()){
-                    adjButton.doClick();
+                    adjButton.clicked(this);
                 }
             }
         }
@@ -141,6 +141,19 @@ public class GamePanel extends DefaultPanel{
             }
         }
         return false;
+    }
+
+    public void gameOver(){
+        for(byte row = 0; row < buttons.length; row++){
+            for(byte col = 0; col < buttons.length; col++){
+                if(buttons[row][col].hasMine()){
+                    buttons[row][col].changeButton();
+                    buttons[row][col].setText("X");
+                } else {
+                    buttons[row][col].setEnabled(false);
+                }
+            }
+        }
     }
     
 }

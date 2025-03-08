@@ -19,21 +19,7 @@ public class GridButton extends DefaultButton{
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                setBackground(Color.LIGHT_GRAY);
-                setEnabled(false);
-                setBorder(null);
-                if(!gPanel.isFirstClickDone()){
-                    gPanel.firstClickDone();
-                    gPanel.setMines(getRow(), getCol());
-                    gPanel.setAllAdjMines(getRow(), getCol());
-                    gPanel.clearNoAdjMines(row, col);
-                } else if(hasMine()){
-                    setText("X");
-                } else if(adjMines > 0){
-                    setText(Byte.toString(adjMines));
-                } else {
-                    gPanel.clearNoAdjMines(row, col);
-                }
+                clicked(gPanel);
             }
         });
     }
@@ -49,4 +35,29 @@ public class GridButton extends DefaultButton{
     public void setAdjMines(byte adjMines){this.adjMines = adjMines;}
 
     public byte getAdjMines(){return this.adjMines;}
+
+    public void changeButton(){
+        this.setBackground(Color.LIGHT_GRAY);
+        this.setEnabled(false);
+        this.setBorder(null);
+    }
+
+    public void clicked(GamePanel gPanel){
+        this.changeButton();
+        if(!gPanel.isFirstClickDone()){
+            gPanel.firstClickDone();
+            gPanel.setMines(getRow(), getCol());
+            gPanel.setAllAdjMines(getRow(), getCol());
+            gPanel.clearNoAdjMines(row, col);
+        } else if(hasMine()){
+            setText("X");
+            gPanel.gameOver();
+        } else if(adjMines > 0){
+            setText(Byte.toString(adjMines));
+        } else {
+            gPanel.clearNoAdjMines(row, col);
+        }
+    }
+
+    
 }
