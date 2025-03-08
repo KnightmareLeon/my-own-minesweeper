@@ -9,7 +9,7 @@ public class MainMenuPanel extends MenuPanel{
     private StatsButton statsButton;
     
     public MainMenuPanel(MainFrame mFrame){
-        this.conGameButton = new ContinueGameButton();
+        this.conGameButton = new ContinueGameButton(mFrame);
         this.newGameButton = new NewGameButton(mFrame);
         this.statsButton = new StatsButton();
         this.addButton(conGameButton);

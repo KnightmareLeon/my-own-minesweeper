@@ -7,12 +7,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import main.DefaultPanel;
+import main.MainFrame;
+import main.menu.BackButton;
 
 public class GamePanel extends DefaultPanel{
+    
+    private JPanel topPanel = new JPanel();
+    private BackButton backButton;
+    private JLabel minesLabel = new JLabel();
+
     private GridLayout grid;
     private GridButton[][] buttons;
     private JPanel gridPanel = new JPanel();    
-    private JLabel minesLabel = new JLabel();
+    
 
     private boolean firstCLickDone = false;
     private byte mines = 0;
@@ -23,13 +30,17 @@ public class GamePanel extends DefaultPanel{
     
     
 
-    public GamePanel(){
+    public GamePanel(MainFrame mFrame){
         this.setLayout(new BorderLayout());
-        this.add(minesLabel, BorderLayout.NORTH);
+        backButton = new BackButton(mFrame);
+        topPanel.add(backButton);
+        topPanel.add(minesLabel);
+        this.add(topPanel, BorderLayout.NORTH);
         this.add(gridPanel, BorderLayout.CENTER);
     }
 
     public void setUp(byte difficulty){
+        gridPanel.removeAll();
         byte size = 0;
         switch(difficulty){
             case EASY:

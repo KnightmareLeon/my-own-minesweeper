@@ -7,7 +7,7 @@ import main.menu.main.MainMenuPanel;
 import main.menu.start.StartNewGameMenuPanel;
 
 public class MainFrame extends JFrame{
-    private GamePanel gPanel = new GamePanel();
+    private GamePanel gPanel = new GamePanel(this);
     private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel);
     private MainMenuPanel mMPanel = new MainMenuPanel(this);
 
