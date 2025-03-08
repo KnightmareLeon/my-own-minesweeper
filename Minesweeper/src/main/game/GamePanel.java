@@ -28,8 +28,6 @@ public class GamePanel extends DefaultPanel{
     public static final byte NORMAL = 1;
     public static final byte HARD = 2; 
     
-    
-
     public GamePanel(MainFrame mFrame){
         this.setLayout(new BorderLayout());
         backButton = new BackButton(mFrame);
@@ -57,8 +55,8 @@ public class GamePanel extends DefaultPanel{
         buttons = new GridButton[size][size];
         grid = new GridLayout(size, size);
         gridPanel.setLayout(grid);
-        for(int row = 0; row < size; row++){
-            for(int col = 0; col < size; col++){
+        for(byte row = 0; row < size; row++){
+            for(byte col = 0; col < size; col++){
                 buttons[row][col] = new GridButton(this, row, col);
                 gridPanel.add(buttons[row][col]);
             }
@@ -78,10 +76,10 @@ public class GamePanel extends DefaultPanel{
 
     public void firstClickDone(){this.firstCLickDone = true;}
 
-    public void setMines(int rowFirst, int colFirst){
+    public void setMines(byte rowFirst, byte colFirst){
         for(byte mine = 0; mine < mines;){
-            int row = (int) (Math.random() * buttons.length);
-            int col = (int) (Math.random() * buttons.length);
+            byte row = (byte) (Math.random() * buttons.length);
+            byte col = (byte) (Math.random() * buttons.length);
             
             if(!buttons[row][col].hasMine() && row != rowFirst && col != colFirst
                 && !isAdjToFirstClick(buttons[row][col], buttons[rowFirst][colFirst])){
@@ -93,8 +91,8 @@ public class GamePanel extends DefaultPanel{
     }
 
     public void setAllAdjMines(int rowFirst, int colFirst){
-        for(int row = 0; row < buttons.length; row++){
-            for(int col = 0; col < buttons.length; col++){
+        for(byte row = 0; row < buttons.length; row++){
+            for(byte col = 0; col < buttons.length; col++){
                 byte adjMines = 0;
                 if(buttons[row][col].hasMine() || (row == rowFirst && col == colFirst)){
                     continue;
@@ -111,7 +109,7 @@ public class GamePanel extends DefaultPanel{
         }
     }
     
-    public void clearNoAdjMines(int row, int col){
+    public void clearNoAdjMines(byte row, byte col){
         GridButton button = buttons[row][col];
         if(!button.hasMine()){
             for(GridButton adjButton : getAdjacentButtons(button)){
@@ -124,7 +122,7 @@ public class GamePanel extends DefaultPanel{
 
     public GridButton[] getAdjacentButtons(GridButton button){
         GridButton[] adjacentButtons = new GridButton[8];
-        int index = 0;
+        byte index = 0;
         for(int r = button.getRow() - 1; r <= button.getRow() + 1; r++){
             for(int c = button.getCol() - 1; c <= button.getCol() + 1; c++){
                 if(r >= 0 && r < buttons.length && c >= 0 && c < buttons.length &&

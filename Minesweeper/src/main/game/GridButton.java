@@ -11,8 +11,8 @@ import main.DefaultButton;
 public class GridButton extends DefaultButton{
     private boolean mine = false; 
     private byte adjMines = 0;
-    private int row, col;
-    public GridButton(GamePanel gPanel, int row, int col){
+    private byte row, col;
+    public GridButton(GamePanel gPanel, byte row, byte col){
         this.row = row;
         this.col = col;
         this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -42,9 +42,9 @@ public class GridButton extends DefaultButton{
     
     public void setMine(){this.mine = true;}
 
-    public int getRow(){return this.row;}
+    public byte getRow(){return this.row;}
 
-    public int getCol(){return this.col;}
+    public byte getCol(){return this.col;}
 
     public void setAdjMines(byte adjMines){this.adjMines = adjMines;}
 
