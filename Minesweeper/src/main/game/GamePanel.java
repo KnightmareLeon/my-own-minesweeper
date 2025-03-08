@@ -102,16 +102,13 @@ public class GamePanel extends DefaultPanel{
     
     public void clearNoAdjMines(int row, int col){
         GridButton button = buttons[row][col];
-        if(button.getAdjMines() == 0 && !button.hasMine()){
+        if(!button.hasMine()){
             for(GridButton adjButton : getAdjacentButtons(button)){
                 if(adjButton != null && adjButton.isEnabled()){
                     adjButton.doClick();
-                    clearNoAdjMines(adjButton.getRow(), adjButton.getCol());
                 }
             }
-        } else if(button.getAdjMines() > 0){
-            button.doClick();
-        } 
+        }
     }
 
     public GridButton[] getAdjacentButtons(GridButton button){
