@@ -8,12 +8,12 @@ import javax.swing.JPanel;
 
 import main.DefaultPanel;
 import main.MainFrame;
-import main.menu.BackButton;
+import main.menu.MainMenuButton;
 
 public class GamePanel extends DefaultPanel{
     
     private JPanel topPanel = new JPanel();
-    private BackButton backButton;
+    private MainMenuButton backButton;
     private JLabel minesLabel = new JLabel();
 
     private GridLayout grid;
@@ -29,7 +29,7 @@ public class GamePanel extends DefaultPanel{
     
     public GamePanel(MainFrame mFrame){
         this.setLayout(new BorderLayout());
-        backButton = new BackButton(mFrame);
+        backButton = new MainMenuButton(mFrame);
         topPanel.add(backButton);
         topPanel.add(minesLabel);
         this.add(topPanel, BorderLayout.NORTH);
