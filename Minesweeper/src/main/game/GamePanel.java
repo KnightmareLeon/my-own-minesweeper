@@ -11,7 +11,6 @@ import java.awt.Toolkit;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 
 import main.DefaultPanel;
 import main.MainFrame;
@@ -27,8 +26,8 @@ public class GamePanel extends DefaultPanel{
     private JPanel topPanel = new JPanel();
     private MainMenuButton mainMenuButton;
     private NewGameButton newGameButton;
-    private JToggleButton shovelButton = new JToggleButton("1");
-    private JToggleButton flagButton = new JToggleButton("2");
+    private ToolButton shovelButton = new ToolButton(this, GamePanel.SHOVEL);
+    private ToolButton flagButton = new ToolButton(this, GamePanel.FLAG);
     private ButtonGroup toolButtonGroup = new ButtonGroup();
     private JLabel minesLabel = new JLabel();
 
@@ -79,9 +78,6 @@ public class GamePanel extends DefaultPanel{
 
         toolButtonGroup.add(shovelButton);
         toolButtonGroup.add(flagButton);
-        shovelButton.setSelected(true);
-        shovelButton.addActionListener(e -> setTool(SHOVEL));
-        flagButton.addActionListener(e -> setTool(FLAG));
 
         topPanel.add(mainMenuButton);
         topPanel.add(newGameButton);

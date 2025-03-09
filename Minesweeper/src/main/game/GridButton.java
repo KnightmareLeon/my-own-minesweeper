@@ -44,7 +44,7 @@ public class GridButton extends DefaultButton{
     }
 
     public void clicked(GamePanel gPanel){
-        if(gPanel.getTool() == GamePanel.FLAG){
+        if(gPanel.getTool() == GamePanel.FLAG && gPanel.isFirstClickDone()){
             if(!flagged){
                 setText("F");
                 gPanel.updateMines(GamePanel.DECREMENT);
@@ -56,6 +56,10 @@ public class GridButton extends DefaultButton{
             }
             return;
         }
+        else if (gPanel.getTool() == GamePanel.FLAG && !gPanel.isFirstClickDone()){
+            return;
+        }
+        
         this.disableGridButton();
         if(!gPanel.isFirstClickDone()){
             gPanel.firstClickDone();
