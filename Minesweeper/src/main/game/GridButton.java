@@ -36,14 +36,14 @@ public class GridButton extends DefaultButton{
 
     public byte getAdjMines(){return this.adjMines;}
 
-    public void changeButton(){
+    public void disableGridButton(){
         this.setBackground(Color.LIGHT_GRAY);
         this.setEnabled(false);
         this.setBorder(null);
     }
 
     public void clicked(GamePanel gPanel){
-        this.changeButton();
+        this.disableGridButton();
         if(!gPanel.isFirstClickDone()){
             gPanel.firstClickDone();
             gPanel.setMines(getRow(), getCol());

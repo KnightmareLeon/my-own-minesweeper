@@ -1,6 +1,7 @@
 package main.game;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -9,16 +10,18 @@ import javax.swing.JPanel;
 import main.DefaultPanel;
 import main.MainFrame;
 import main.menu.MainMenuButton;
+import main.menu.main.NewGameButton;
 
 public class GamePanel extends DefaultPanel{
     
     private JPanel topPanel = new JPanel();
-    private MainMenuButton backButton;
+    private MainMenuButton mainMenuButton;
+    private NewGameButton newGameButton;
     private JLabel minesLabel = new JLabel();
 
+    private JPanel gridPanel = new JPanel();
     private GridLayout grid;
     private GridButton[][] buttons;
-    private JPanel gridPanel = new JPanel();    
 
     private boolean firstCLickDone = false;
     private byte mines = 0;
@@ -29,9 +32,20 @@ public class GamePanel extends DefaultPanel{
     
     public GamePanel(MainFrame mFrame){
         this.setLayout(new BorderLayout());
-        backButton = new MainMenuButton(mFrame);
-        topPanel.add(backButton);
+        
+        mainMenuButton = new MainMenuButton(mFrame);
+        newGameButton = new NewGameButton(mFrame);
+        
+        mainMenuButton.setPreferredSize(new Dimension(100, 50));
+        newGameButton.setPreferredSize(new Dimension(100, 50));
+        
+        mainMenuButton.setText("Main");
+        newGameButton.setText("New");
+
+        topPanel.add(mainMenuButton);
+        topPanel.add(newGameButton);
         topPanel.add(minesLabel);
+        
         this.add(topPanel, BorderLayout.NORTH);
         this.add(gridPanel, BorderLayout.CENTER);
     }
@@ -67,7 +81,8 @@ public class GamePanel extends DefaultPanel{
                 this.setUpFont(this);
                 break;
             case HARD:
-                this.setUpFont(this,15);
+                this.setUpFont(topPanel);
+                this.setUpFont(gridPanel,15);
                 break;
         }
     }
@@ -147,7 +162,7 @@ public class GamePanel extends DefaultPanel{
         for(byte row = 0; row < buttons.length; row++){
             for(byte col = 0; col < buttons.length; col++){
                 if(buttons[row][col].hasMine()){
-                    buttons[row][col].changeButton();
+                    buttons[row][col].disableGridButton();
                     buttons[row][col].setText("X");
                 } else {
                     buttons[row][col].setEnabled(false);

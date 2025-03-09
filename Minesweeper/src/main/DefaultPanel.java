@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class DefaultPanel extends JPanel{
     private final int DEFAULT_FONT_STYLE = Font.PLAIN;
     private final int DEFAULT_FONT_SIZE = 30;
-    private final String FONT_FILE_PATH = "src/resources/Retro Gaming.ttf";
+    private final String FONT_FILE_PATH = "src/resources/fonts/Retro Gaming.ttf";
     private Font font;
 
     public DefaultPanel(){
