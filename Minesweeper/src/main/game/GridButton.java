@@ -10,6 +10,7 @@ import main.DefaultButton;
 
 public class GridButton extends DefaultButton{
     private boolean mine = false; 
+    private boolean flagged = false;
     private byte adjMines = 0;
     private byte row, col;
     public GridButton(GamePanel gPanel, byte row, byte col){
@@ -43,6 +44,18 @@ public class GridButton extends DefaultButton{
     }
 
     public void clicked(GamePanel gPanel){
+        if(gPanel.getTool() == GamePanel.FLAG){
+            if(!flagged){
+                setText("F");
+                gPanel.updateMines(GamePanel.DECREMENT);
+                flagged = true;
+            } else {
+                setText("");
+                gPanel.updateMines(GamePanel.INCREMENT);
+                flagged = false;
+            }
+            return;
+        }
         this.disableGridButton();
         if(!gPanel.isFirstClickDone()){
             gPanel.firstClickDone();

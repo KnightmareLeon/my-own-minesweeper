@@ -46,6 +46,10 @@ public class GamePanel extends DefaultPanel{
     public static final byte SHOVEL = 0;
     public static final byte FLAG = 1;
 
+    public static final byte SET = 0;
+    public static final byte INCREMENT = 1;
+    public static final byte DECREMENT = 2;
+
     public static final byte EASY = 0;
     public static final byte NORMAL = 1;
     public static final byte HARD = 2; 
@@ -104,7 +108,7 @@ public class GamePanel extends DefaultPanel{
                 size = 30; mines = 99;
                 break;
         }
-        this.updateMines(mines);
+        this.updateMines(SET);
         buttons = new GridButton[size][size];
         grid = new GridLayout(size, size);
         gridPanel.setLayout(grid);
@@ -130,7 +134,15 @@ public class GamePanel extends DefaultPanel{
 
     public void firstClickDone(){this.firstCLickDone = true;}
 
-    public void updateMines(byte mines){
+    public void updateMines(byte action){
+        switch(action){
+            case INCREMENT:
+                mines++;
+                break;
+            case DECREMENT:
+                mines--;
+                break;
+        }
         minesLabel.setText("Mines: " + mines);
     }
 
@@ -192,7 +204,7 @@ public class GamePanel extends DefaultPanel{
     
     public void setTool(byte tool){
         this.tool = tool;
-        switch(tool){
+        switch(this.tool){
             case SHOVEL:
                 gridPanel.setCursor(shovelCursor);
                 break;
@@ -201,6 +213,8 @@ public class GamePanel extends DefaultPanel{
                 break;
         }
     }
+
+    public byte getTool(){return this.tool;}
 
     public void clearNoAdjMines(byte row, byte col){
         GridButton button = buttons[row][col];
