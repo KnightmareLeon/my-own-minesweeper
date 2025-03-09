@@ -1,8 +1,12 @@
 package main.game;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +26,9 @@ public class GamePanel extends DefaultPanel{
     private JPanel gridPanel = new JPanel();
     private GridLayout grid;
     private GridButton[][] buttons;
+    private Toolkit toolkit = Toolkit.getDefaultToolkit();
+    private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
+    private Cursor shovelCursor;
 
     private boolean firstCLickDone = false;
     private byte mines = 0;
@@ -42,6 +49,12 @@ public class GamePanel extends DefaultPanel{
         mainMenuButton.setText("Main");
         newGameButton.setText("New");
 
+        shovelCursor = toolkit.createCustomCursor(
+            shovelImage, 
+            new Point(gridPanel.getX(),gridPanel.getY()), 
+            "shovel");
+        gridPanel.setCursor(shovelCursor);
+        
         topPanel.add(mainMenuButton);
         topPanel.add(newGameButton);
         topPanel.add(minesLabel);
