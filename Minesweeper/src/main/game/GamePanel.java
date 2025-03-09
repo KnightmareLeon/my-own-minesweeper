@@ -8,8 +8,10 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
 import main.DefaultPanel;
 import main.MainFrame;
@@ -18,20 +20,31 @@ import main.menu.main.NewGameButton;
 
 public class GamePanel extends DefaultPanel{
     
+    private Toolkit toolkit = Toolkit.getDefaultToolkit();
+    private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
+    private Image flagImage = toolkit.getImage("src/resources/images/Flag.png");
+
     private JPanel topPanel = new JPanel();
     private MainMenuButton mainMenuButton;
     private NewGameButton newGameButton;
+    private JToggleButton shovelButton = new JToggleButton("1");
+    private JToggleButton flagButton = new JToggleButton("2");
+    private ButtonGroup toolButtonGroup = new ButtonGroup();
     private JLabel minesLabel = new JLabel();
 
     private JPanel gridPanel = new JPanel();
     private GridLayout grid;
     private GridButton[][] buttons;
-    private Toolkit toolkit = Toolkit.getDefaultToolkit();
-    private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
+    
     private Cursor shovelCursor;
+    private Cursor flagCursor;
 
     private boolean firstCLickDone = false;
     private byte mines = 0;
+    private byte tool = 0;
+
+    public static final byte SHOVEL = 0;
+    public static final byte FLAG = 1;
 
     public static final byte EASY = 0;
     public static final byte NORMAL = 1;
@@ -53,10 +66,23 @@ public class GamePanel extends DefaultPanel{
             shovelImage, 
             new Point(gridPanel.getX(),gridPanel.getY()), 
             "shovel");
-        gridPanel.setCursor(shovelCursor);
+        flagCursor = toolkit.createCustomCursor(
+            flagImage, 
+            new Point(gridPanel.getX(),gridPanel.getY()), 
+            "flag");
         
+        gridPanel.setCursor(shovelCursor);
+
+        toolButtonGroup.add(shovelButton);
+        toolButtonGroup.add(flagButton);
+        shovelButton.setSelected(true);
+        shovelButton.addActionListener(e -> setTool(SHOVEL));
+        flagButton.addActionListener(e -> setTool(FLAG));
+
         topPanel.add(mainMenuButton);
         topPanel.add(newGameButton);
+        topPanel.add(shovelButton);
+        topPanel.add(flagButton);
         topPanel.add(minesLabel);
         
         this.add(topPanel, BorderLayout.NORTH);
@@ -69,16 +95,16 @@ public class GamePanel extends DefaultPanel{
         byte size = 0;
         switch(difficulty){
             case EASY:
-                size = 9; mines = 10; minesLabel.setText("Mines: 10");
+                size = 9; mines = 10; 
                 break;
             case NORMAL:
-                size = 16; mines = 40; minesLabel.setText("Mines: 40");
+                size = 16; mines = 40;
                 break;
             case HARD: 
-                size = 30; mines = 99; minesLabel.setText("Mines: 99");
+                size = 30; mines = 99;
                 break;
         }
-
+        this.updateMines(mines);
         buttons = new GridButton[size][size];
         grid = new GridLayout(size, size);
         gridPanel.setLayout(grid);
@@ -91,10 +117,10 @@ public class GamePanel extends DefaultPanel{
         switch(difficulty){
             case EASY:
             case NORMAL:
-                this.setUpFont(this);
+                this.setUpFont(this, 20);
                 break;
             case HARD:
-                this.setUpFont(topPanel);
+                this.setUpFont(topPanel,20);
                 this.setUpFont(gridPanel,15);
                 break;
         }
@@ -103,6 +129,33 @@ public class GamePanel extends DefaultPanel{
     public boolean isFirstClickDone(){return firstCLickDone;}
 
     public void firstClickDone(){this.firstCLickDone = true;}
+
+    public void updateMines(byte mines){
+        minesLabel.setText("Mines: " + mines);
+    }
+
+    public GridButton[] getAdjacentButtons(GridButton button){
+        GridButton[] adjacentButtons = new GridButton[8];
+        byte index = 0;
+        for(int r = button.getRow() - 1; r <= button.getRow() + 1; r++){
+            for(int c = button.getCol() - 1; c <= button.getCol() + 1; c++){
+                if(r >= 0 && r < buttons.length && c >= 0 && c < buttons.length &&
+                   (r != button.getRow() || c != button.getCol())){
+                    adjacentButtons[index++] = buttons[r][c];
+                }
+            }
+        }
+        return adjacentButtons;
+    }
+
+    public boolean isAdjToFirstClick(GridButton button, GridButton firstClick){
+        for(GridButton adjButton : this.getAdjacentButtons(button)){
+            if(adjButton != null && adjButton == firstClick){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void setMines(byte rowFirst, byte colFirst){
         for(byte mine = 0; mine < mines;){
@@ -137,6 +190,18 @@ public class GamePanel extends DefaultPanel{
         }
     }
     
+    public void setTool(byte tool){
+        this.tool = tool;
+        switch(tool){
+            case SHOVEL:
+                gridPanel.setCursor(shovelCursor);
+                break;
+            case FLAG:
+                gridPanel.setCursor(flagCursor);
+                break;
+        }
+    }
+
     public void clearNoAdjMines(byte row, byte col){
         GridButton button = buttons[row][col];
         if(!button.hasMine()){
@@ -146,29 +211,6 @@ public class GamePanel extends DefaultPanel{
                 }
             }
         }
-    }
-
-    public GridButton[] getAdjacentButtons(GridButton button){
-        GridButton[] adjacentButtons = new GridButton[8];
-        byte index = 0;
-        for(int r = button.getRow() - 1; r <= button.getRow() + 1; r++){
-            for(int c = button.getCol() - 1; c <= button.getCol() + 1; c++){
-                if(r >= 0 && r < buttons.length && c >= 0 && c < buttons.length &&
-                   (r != button.getRow() || c != button.getCol())){
-                    adjacentButtons[index++] = buttons[r][c];
-                }
-            }
-        }
-        return adjacentButtons;
-    }
-
-    public boolean isAdjToFirstClick(GridButton button, GridButton firstClick){
-        for(GridButton adjButton : this.getAdjacentButtons(button)){
-            if(adjButton != null && adjButton == firstClick){
-                return true;
-            }
-        }
-        return false;
     }
 
     public void gameOver(){
