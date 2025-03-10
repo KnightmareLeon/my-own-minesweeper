@@ -1,18 +1,23 @@
 package main.game;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 
 import main.DefaultButton;
 
 public class GridButton extends DefaultButton{
     private boolean mine = false; 
     private boolean flagged = false;
+
     private byte adjMines = 0;
     private byte row, col;
+
+    private Image mineImage;
     public GridButton(GamePanel gPanel, byte row, byte col){
         this.row = row;
         this.col = col;
@@ -36,6 +41,11 @@ public class GridButton extends DefaultButton{
     public void setAdjMines(byte adjMines){this.adjMines = adjMines;}
 
     public byte getAdjMines(){return this.adjMines;}
+
+    public void setMineImage(Image mineImage, byte size){
+        Image scaledMineImage = mineImage.getScaledInstance(500 / size - 5, 500 / size - 5, Image.SCALE_SMOOTH);
+        this.mineImage = scaledMineImage;
+    }
 
     public void disableGridButton(){
         this.setBackground(Color.LIGHT_GRAY);
@@ -67,7 +77,7 @@ public class GridButton extends DefaultButton{
             gPanel.setAllAdjMines(getRow(), getCol());
             gPanel.clearNoAdjMines(row, col);
         } else if(hasMine()){
-            setText("X");
+            setMineIcon();
             gPanel.gameOver();
         } else if(adjMines > 0){
             setText(Byte.toString(adjMines));
@@ -76,6 +86,10 @@ public class GridButton extends DefaultButton{
         }
 
         gPanel.setClickedButtons();
+    }
+
+    public void setMineIcon(){
+        setIcon(new ImageIcon(mineImage));
     }
 
     

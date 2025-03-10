@@ -19,11 +19,10 @@ import main.menu.main.NewGameButton;
 
 public class GamePanel extends DefaultPanel{
     
-    private MainFrame mFrame;
-
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
     private Image flagImage = toolkit.getImage("src/resources/images/Flag.png");
+    private Image mineImage = toolkit.getImage("src/resources/images/Mine.png");
     
     private JPanel topPanel = new JPanel();
     private MainMenuButton mainMenuButton;
@@ -66,7 +65,6 @@ public class GamePanel extends DefaultPanel{
     public static final byte HARD = 2; 
     
     public GamePanel(MainFrame mFrame){
-        this.mFrame = mFrame;
         this.setLayout(new BorderLayout());
         
         mainMenuButton = new MainMenuButton(mFrame);
@@ -116,7 +114,6 @@ public class GamePanel extends DefaultPanel{
                     Thread.sleep(1000);
                     seconds++;
                     timerLabel.setText("Timer: " + seconds/60 + ":" + String.format("%02d", seconds%60));
-                    System.out.println(seconds);
                 } catch(InterruptedException e){
                     e.printStackTrace();
                 }
@@ -154,8 +151,10 @@ public class GamePanel extends DefaultPanel{
             for(byte col = 0; col < size; col++){
                 buttons[row][col] = new GridButton(this, row, col);
                 gridPanel.add(buttons[row][col]);
+                
             }
         }
+        System.out.println(buttons[0][0].getPreferredSize());
         switch(difficulty){
             case EASY:
             case NORMAL:
@@ -216,6 +215,7 @@ public class GamePanel extends DefaultPanel{
             if(!buttons[row][col].hasMine() && row != rowFirst && col != colFirst
                 && !isAdjToFirstClick(buttons[row][col], buttons[rowFirst][colFirst])){
                 buttons[row][col].setMine();
+                buttons[row][col].setMineImage(mineImage, (byte) buttons.length);
                 mineButtons[mine] = buttons[row][col];
                 mine++;
             }
@@ -278,7 +278,7 @@ public class GamePanel extends DefaultPanel{
             for(byte col = 0; col < buttons.length; col++){
                 if(buttons[row][col].hasMine()){
                     buttons[row][col].disableGridButton();
-                    buttons[row][col].setText("X");
+                    buttons[row][col].setMineIcon();
                 } else {
                     buttons[row][col].setEnabled(false);
                 }
