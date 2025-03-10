@@ -1,6 +1,7 @@
 package main.menu.main;
 
 import main.MainFrame;
+import main.game.GamePanel;
 import main.menu.MenuPanel;
 
 public class MainMenuPanel extends MenuPanel{
@@ -8,8 +9,8 @@ public class MainMenuPanel extends MenuPanel{
     private NewGameButton newGameButton;
     private StatsButton statsButton;
     
-    public MainMenuPanel(MainFrame mFrame){
-        this.conGameButton = new ContinueGameButton(mFrame);
+    public MainMenuPanel(MainFrame mFrame, GamePanel gPanel){
+        this.conGameButton = new ContinueGameButton(mFrame, gPanel);
         this.newGameButton = new NewGameButton(mFrame);
         this.statsButton = new StatsButton();
         this.addButton(conGameButton);

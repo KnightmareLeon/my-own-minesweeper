@@ -42,6 +42,7 @@ public class GamePanel extends DefaultPanel{
     private Cursor shovelCursor;
     private Cursor flagCursor;
 
+    private boolean gameStart = false;
     private boolean firstCLickDone = false;
     private byte mines = 0;
     private byte flaggedMines = 0;
@@ -98,7 +99,10 @@ public class GamePanel extends DefaultPanel{
         this.add(bottomPanel, BorderLayout.SOUTH);
     }
 
+    public boolean hasGameStarted(){return gameStart;}
+
     public void setUp(byte difficulty){
+        gameStart = true;
         gridPanel.removeAll();
         resultLabel.setText(" ");
         firstCLickDone = false;

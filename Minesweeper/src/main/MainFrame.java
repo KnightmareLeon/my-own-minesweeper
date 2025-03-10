@@ -9,7 +9,7 @@ import main.menu.start.StartNewGameMenuPanel;
 public class MainFrame extends JFrame{
     private GamePanel gPanel = new GamePanel(this);
     private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel);
-    private MainMenuPanel mMPanel = new MainMenuPanel(this);
+    private MainMenuPanel mMPanel = new MainMenuPanel(this, gPanel);
 
     public static final byte MAIN_MENU = 0;
     public static final byte START_NEW_GAME_MENU = 1;
