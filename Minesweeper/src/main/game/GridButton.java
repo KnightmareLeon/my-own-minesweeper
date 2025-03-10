@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.plaf.metal.MetalButtonUI;
 
 import main.DefaultButton;
 
@@ -22,6 +23,12 @@ public class GridButton extends DefaultButton{
         this.row = row;
         this.col = col;
         this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+        this.setUI(new MetalButtonUI(){
+            @Override
+            protected Color getDisabledTextColor(){
+                return Color.BLACK;
+            }
+        });
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -43,14 +50,14 @@ public class GridButton extends DefaultButton{
     public byte getAdjMines(){return this.adjMines;}
 
     public void setMineImage(Image mineImage, byte size){
-        Image scaledMineImage = mineImage.getScaledInstance(500 / size - 5, 500 / size - 5, Image.SCALE_SMOOTH);
+        Image scaledMineImage = mineImage.getScaledInstance(500 / size, 500 / size, Image.SCALE_SMOOTH);
         this.mineImage = scaledMineImage;
     }
 
     public void disableGridButton(){
-        this.setBackground(Color.LIGHT_GRAY);
-        this.setEnabled(false);
+        this.setBackground(new Color(211, 211, 211));
         this.setBorder(null);
+        this.setEnabled(false);
     }
 
     public void clicked(GamePanel gPanel){
@@ -84,12 +91,14 @@ public class GridButton extends DefaultButton{
         } else {
             gPanel.clearNoAdjMines(row, col);
         }
+        
 
         gPanel.setClickedButtons();
     }
 
     public void setMineIcon(){
-        setIcon(new ImageIcon(mineImage));
+        this.setIcon(new ImageIcon(mineImage));
+        this.setDisabledIcon(new ImageIcon(mineImage));
     }
 
     
