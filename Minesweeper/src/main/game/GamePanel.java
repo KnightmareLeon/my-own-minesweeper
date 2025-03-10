@@ -19,6 +19,8 @@ import main.menu.main.NewGameButton;
 
 public class GamePanel extends DefaultPanel{
     
+    private MainFrame mFrame;
+
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
     private Image flagImage = toolkit.getImage("src/resources/images/Flag.png");
@@ -38,16 +40,19 @@ public class GamePanel extends DefaultPanel{
 
     private JPanel bottomPanel = new JPanel();
     private JLabel resultLabel = new JLabel(" ");
+    private JLabel timerLabel = new JLabel("Timer: 0:00");
 
     private Cursor shovelCursor;
     private Cursor flagCursor;
 
     private boolean gameStart = false;
+    private boolean gameOver = false;
     private boolean firstCLickDone = false;
     private byte mines = 0;
     private byte flaggedMines = 0;
     private byte tool = 0;
     private int totalClickedButtons = 0;
+    private int seconds = 0;
 
     public static final byte SHOVEL = 0;
     public static final byte FLAG = 1;
@@ -61,6 +66,7 @@ public class GamePanel extends DefaultPanel{
     public static final byte HARD = 2; 
     
     public GamePanel(MainFrame mFrame){
+        this.mFrame = mFrame;
         this.setLayout(new BorderLayout());
         
         mainMenuButton = new MainMenuButton(mFrame);
@@ -93,16 +99,36 @@ public class GamePanel extends DefaultPanel{
         topPanel.add(minesLabel);
         
         bottomPanel.add(resultLabel);
+        bottomPanel.add(timerLabel);
 
         this.add(topPanel, BorderLayout.NORTH);
         this.add(gridPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
+
     }
 
     public boolean hasGameStarted(){return gameStart;}
 
+    public void timer(){
+        Thread timer = new Thread(() -> {
+            while(gameStart && !gameOver){
+                try{
+                    Thread.sleep(1000);
+                    seconds++;
+                    timerLabel.setText("Timer: " + seconds/60 + ":" + String.format("%02d", seconds%60));
+                    System.out.println(seconds);
+                } catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        timer.start();
+    }
+
     public void setUp(byte difficulty){
         gameStart = true;
+        seconds = 0;
+        this.timer();
         gridPanel.removeAll();
         resultLabel.setText(" ");
         firstCLickDone = false;
@@ -259,6 +285,7 @@ public class GamePanel extends DefaultPanel{
             }
         }
         resultLabel.setText("Game Over!");
+        gameOver = true;
     }
 
     public void gameWin(){
@@ -267,6 +294,7 @@ public class GamePanel extends DefaultPanel{
             mine.setText("F");
         }
         resultLabel.setText("You Win!");
+        gameOver = true;
     }
     
 }
