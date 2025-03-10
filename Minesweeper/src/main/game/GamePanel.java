@@ -22,12 +22,12 @@ public class GamePanel extends DefaultPanel{
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
     private Image flagImage = toolkit.getImage("src/resources/images/Flag.png");
-
+    
     private JPanel topPanel = new JPanel();
     private MainMenuButton mainMenuButton;
     private NewGameButton newGameButton;
-    private ToolButton shovelButton = new ToolButton(this, GamePanel.SHOVEL);
-    private ToolButton flagButton = new ToolButton(this, GamePanel.FLAG);
+    private ToolButton shovelButton = new ToolButton(this, GamePanel.SHOVEL, shovelImage);
+    private ToolButton flagButton = new ToolButton(this, GamePanel.FLAG, flagImage);
     private ButtonGroup toolButtonGroup = new ButtonGroup();
     private JLabel minesLabel = new JLabel();
 
