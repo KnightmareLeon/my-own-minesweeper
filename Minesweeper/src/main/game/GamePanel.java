@@ -34,13 +34,19 @@ public class GamePanel extends DefaultPanel{
     private JPanel gridPanel = new JPanel();
     private GridLayout grid;
     private GridButton[][] buttons;
-    
+    private GridButton[] mineButtons;
+
+    private JPanel bottomPanel = new JPanel();
+    private JLabel resultLabel = new JLabel(" ");
+
     private Cursor shovelCursor;
     private Cursor flagCursor;
 
     private boolean firstCLickDone = false;
     private byte mines = 0;
+    private byte flaggedMines = 0;
     private byte tool = 0;
+    private int totalClickedButtons = 0;
 
     public static final byte SHOVEL = 0;
     public static final byte FLAG = 1;
@@ -85,27 +91,33 @@ public class GamePanel extends DefaultPanel{
         topPanel.add(flagButton);
         topPanel.add(minesLabel);
         
+        bottomPanel.add(resultLabel);
+
         this.add(topPanel, BorderLayout.NORTH);
         this.add(gridPanel, BorderLayout.CENTER);
+        this.add(bottomPanel, BorderLayout.SOUTH);
     }
 
     public void setUp(byte difficulty){
         gridPanel.removeAll();
+        resultLabel.setText(" ");
         firstCLickDone = false;
         byte size = 0;
         switch(difficulty){
             case EASY:
-                size = 9; mines = 10; 
+                size = 9; mines = flaggedMines = 10;
                 break;
             case NORMAL:
-                size = 16; mines = 40;
+                size = 16; mines = flaggedMines = 40;
                 break;
             case HARD: 
-                size = 30; mines = 99;
+                size = 30; mines = flaggedMines = 99;
                 break;
         }
+        this.totalClickedButtons = size * size;
         this.updateMines(SET);
         buttons = new GridButton[size][size];
+        mineButtons = new GridButton[mines];
         grid = new GridLayout(size, size);
         gridPanel.setLayout(grid);
         for(byte row = 0; row < size; row++){
@@ -133,13 +145,13 @@ public class GamePanel extends DefaultPanel{
     public void updateMines(byte action){
         switch(action){
             case INCREMENT:
-                mines++;
+                flaggedMines++;
                 break;
             case DECREMENT:
-                mines--;
+                flaggedMines--;
                 break;
         }
-        minesLabel.setText("Mines: " + mines);
+        minesLabel.setText("Mines: " + flaggedMines);
     }
 
     public GridButton[] getAdjacentButtons(GridButton button){
@@ -173,8 +185,8 @@ public class GamePanel extends DefaultPanel{
             if(!buttons[row][col].hasMine() && row != rowFirst && col != colFirst
                 && !isAdjToFirstClick(buttons[row][col], buttons[rowFirst][colFirst])){
                 buttons[row][col].setMine();
+                mineButtons[mine] = buttons[row][col];
                 mine++;
-                
             }
         }
     }
@@ -212,6 +224,13 @@ public class GamePanel extends DefaultPanel{
 
     public byte getTool(){return this.tool;}
 
+    public void setClickedButtons(){
+        this.totalClickedButtons--;
+        if(totalClickedButtons == mines){
+            gameWin();
+        }
+    }
+
     public void clearNoAdjMines(byte row, byte col){
         GridButton button = buttons[row][col];
         if(!button.hasMine()){
@@ -234,6 +253,15 @@ public class GamePanel extends DefaultPanel{
                 }
             }
         }
+        resultLabel.setText("Game Over!");
+    }
+
+    public void gameWin(){
+        for(GridButton mine: mineButtons){
+            mine.disableGridButton();
+            mine.setText("F");
+        }
+        resultLabel.setText("You Win!");
     }
     
 }

@@ -74,6 +74,8 @@ public class GridButton extends DefaultButton{
         } else {
             gPanel.clearNoAdjMines(row, col);
         }
+
+        gPanel.setClickedButtons();
     }
 
     
