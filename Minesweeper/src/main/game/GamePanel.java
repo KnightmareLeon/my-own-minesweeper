@@ -138,6 +138,7 @@ public class GamePanel extends DefaultPanel{
             case HARD:
                 this.setUpFont(topPanel,20);
                 this.setUpFont(gridPanel,15);
+                this.setUpFont(bottomPanel, 20);
                 break;
         }
     }

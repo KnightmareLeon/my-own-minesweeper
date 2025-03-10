@@ -15,7 +15,7 @@ public class ToolButton extends JToggleButton{
         this.setBackground(new Color(209, 208, 206));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         this.setFocusPainted(false);
-        Image scaledImg = image.getScaledInstance(SIZE, SIZE, Image.SCALE_SMOOTH);
+        Image scaledImg = image.getScaledInstance(SIZE - 10, SIZE - 10, Image.SCALE_SMOOTH);
         this.setIcon(new ImageIcon(scaledImg));
         this.addActionListener(e -> gPanel.setTool(tool));
         if(tool == GamePanel.SHOVEL){this.setSelected(true);}
