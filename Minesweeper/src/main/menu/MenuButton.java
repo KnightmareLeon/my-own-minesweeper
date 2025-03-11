@@ -8,7 +8,7 @@ import main.DefaultButton;
 
 public abstract class MenuButton extends DefaultButton{
     public MenuButton(){
-        this.setPreferredSize(new Dimension(300,50));
+        this.setPreferredSize(new Dimension(500,90));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
     }
 }

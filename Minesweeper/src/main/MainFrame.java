@@ -16,7 +16,7 @@ public class MainFrame extends JFrame{
     public static final byte GAME = 2;
 
     public MainFrame(){
-        this.setSize(500,500);
+        this.setSize(800,800);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Minesweeper");
