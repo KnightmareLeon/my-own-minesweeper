@@ -20,6 +20,7 @@ public class GridButton extends DefaultButton{
     private byte row, col;
 
     private Image mineImage;
+    private Image flagImage;
     public GridButton(GamePanel gPanel, byte row, byte col){
         this.row = row;
         this.col = col;
@@ -78,6 +79,11 @@ public class GridButton extends DefaultButton{
         this.mineImage = scaledMineImage;
     }
 
+    public void setFlagImage(Image flagImage, byte size){
+        Image scaledFlagImage = flagImage.getScaledInstance(500 / size, 500 / size, Image.SCALE_SMOOTH);
+        this.flagImage = scaledFlagImage;
+    }
+
     public void disableGridButton(){
         this.setBackground(new Color(211, 211, 211));
         this.setBorder(null);
@@ -87,16 +93,17 @@ public class GridButton extends DefaultButton{
     public void clicked(GamePanel gPanel){
         if(gPanel.getTool() == GamePanel.FLAG && gPanel.isFirstClickDone()){
             if(!flagged){
-                setText("F");
+                setIcon(new ImageIcon(flagImage));
                 gPanel.updateMines(GamePanel.DECREMENT);
                 flagged = true;
             } else {
-                setText("");
+                setIcon(null);
                 gPanel.updateMines(GamePanel.INCREMENT);
                 flagged = false;
             }
             return;
         }
+
         else if (gPanel.getTool() == GamePanel.FLAG && !gPanel.isFirstClickDone()){
             return;
         }

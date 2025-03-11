@@ -164,7 +164,7 @@ public class GamePanel extends DefaultPanel{
             for(byte col = 0; col < size; col++){
                 buttons[row][col] = new GridButton(this, row, col);
                 gridPanel.add(buttons[row][col]);
-                
+                buttons[row][col].setFlagImage(flagImage, size);
             }
         }
         switch(difficulty){
