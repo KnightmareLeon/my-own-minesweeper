@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
 
 import main.DefaultPanel;
@@ -44,33 +47,39 @@ public class StatsPanel extends DefaultPanel{
         }
 
         easyGamesPlayedLabel = new JLabel("Easy Games Played: " + easyGamesPlayed);
-        easyWinsLabel = new JLabel("Easy Wins: " + easyWins);
+        easyWinsLabel = new JLabel("Easy Games Won: " + easyWins);
         easyFastestTimeLabel = new JLabel("Easy Fastest Time: " + 
         easyFastestTime/60 + ":" + String.format("%02d",easyFastestTime%60));
 
         normalGamesPlayedLabel = new JLabel("Normal Games Played: " + normalGamesPlayed);
-        normalWinsLabel = new JLabel("Normal Wins: " + normalWins);
+        normalWinsLabel = new JLabel("Normal Games Won: " + normalWins);
         normalFastestTimeLabel = new JLabel("Normal Fastest Time: " +
         normalFastestTime/60 + ":" + String.format("%02d",normalFastestTime%60));
 
         hardGamesPlayedLabel = new JLabel("Hard Games Played: " + hardGamesPlayed);
-        hardWinsLabel = new JLabel("Hard Wins: " + hardWins);
+        hardWinsLabel = new JLabel("Hard Games Won: " + hardWins);
         hardFastestTimeLabel = new JLabel("Hard Fastest Time: " +
         hardFastestTime/60 + ":" + String.format("%02d",hardFastestTime%60));
 
-        this.add(easyGamesPlayedLabel);
-        this.add(easyWinsLabel);
-        this.add(easyFastestTimeLabel);
+        GridBagConstraints GBC = new GridBagConstraints();
+        this.setLayout(new GridBagLayout());
+        GBC.gridwidth = GridBagConstraints.REMAINDER;
+        GBC.fill = GridBagConstraints.HORIZONTAL;
+        GBC.insets.set(0, 0, 30, 0);
+        GBC.gridx = GBC.gridy = 0;
+        this.add(easyGamesPlayedLabel, GBC); GBC.gridy++;
+        this.add(easyWinsLabel, GBC); GBC.gridy++;
+        this.add(easyFastestTimeLabel, GBC); GBC.gridy++;
 
-        this.add(normalGamesPlayedLabel);
-        this.add(normalWinsLabel);
-        this.add(normalFastestTimeLabel);
+        this.add(normalGamesPlayedLabel, GBC); GBC.gridy++;
+        this.add(normalWinsLabel, GBC); GBC.gridy++;
+        this.add(normalFastestTimeLabel, GBC); GBC.gridy++;
 
-        this.add(hardGamesPlayedLabel);
-        this.add(hardWinsLabel);
-        this.add(hardFastestTimeLabel);
+        this.add(hardGamesPlayedLabel, GBC); GBC.gridy++;
+        this.add(hardWinsLabel, GBC); GBC.gridy++;
+        this.add(hardFastestTimeLabel, GBC); GBC.gridy++;
 
-        this.add(back);
+        this.add(back, GBC);
         this.setUpFont(this);
     }
 }
