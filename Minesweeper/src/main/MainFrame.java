@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 import main.game.GamePanel;
@@ -13,13 +15,15 @@ public class MainFrame extends JFrame{
     private MainMenuPanel mMPanel = new MainMenuPanel(this, gPanel);
     private StatsPanel sPanel = new StatsPanel(this);
 
+    private Toolkit toolkit = Toolkit.getDefaultToolkit();
+    private final int WINDOW_SIZE = toolkit.getScreenSize().height - 50;
     public static final byte MAIN_MENU = 0;
     public static final byte START_NEW_GAME_MENU = 1;
     public static final byte GAME = 2;
     public static final byte STATS = 3;
 
     public MainFrame(){
-        this.setSize(800,800);
+        this.setSize(WINDOW_SIZE, WINDOW_SIZE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Minesweeper");

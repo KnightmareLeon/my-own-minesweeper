@@ -15,7 +15,7 @@ import main.MainFrame;
 import main.menu.MainMenuButton;
 
 public class StatsPanel extends DefaultPanel{
-    private final String STATS_FILE_NAME = "src/resources/stats/stats.txt";
+    private final String STATS_FILE_PATH = "src/resources/stats/stats.txt";
     private File statsFile;
     
     private int easyGamesPlayed, normalGamesPlayed, hardGamesPlayed;
@@ -29,7 +29,8 @@ public class StatsPanel extends DefaultPanel{
     private MainMenuButton back;
     public StatsPanel(MainFrame mFrame){
         back = new MainMenuButton(mFrame);
-        statsFile = new File(STATS_FILE_NAME);
+        statsFile = new File(STATS_FILE_PATH);
+        System.out.println(statsFile.getAbsolutePath());
         try {
             BufferedReader reader = new BufferedReader(new FileReader(statsFile));
             easyGamesPlayed = Integer.parseInt(reader.readLine());

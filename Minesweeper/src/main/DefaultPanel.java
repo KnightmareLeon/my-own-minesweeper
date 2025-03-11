@@ -16,7 +16,7 @@ public class DefaultPanel extends JPanel{
     private final int DEFAULT_FONT_SIZE = 30;
     private final String FONT_FILE_PATH = "src/resources/fonts/Retro Gaming.ttf";
     private Font font;
-
+    
     public DefaultPanel(){
         this.setBackground(new Color(218, 218, 218));
         try {
