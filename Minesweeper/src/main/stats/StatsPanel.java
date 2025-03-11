@@ -30,7 +30,6 @@ public class StatsPanel extends DefaultPanel{
     public StatsPanel(MainFrame mFrame){
         back = new MainMenuButton(mFrame);
         statsFile = new File(STATS_FILE_PATH);
-        System.out.println(statsFile.getAbsolutePath());
         try {
             BufferedReader reader = new BufferedReader(new FileReader(statsFile));
             easyGamesPlayed = Integer.parseInt(reader.readLine());

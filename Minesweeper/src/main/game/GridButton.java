@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -33,6 +34,29 @@ public class GridButton extends DefaultButton{
             @Override
             public void actionPerformed(ActionEvent e){
                 clicked(gPanel);
+            }
+        });
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                if(!isEnabled()){
+                    setBackground(new Color(211, 211, 211));
+                    return;
+                }
+                if(gPanel.getTool() == GamePanel.FLAG){
+                    setBorder(BorderFactory.createLineBorder(Color.RED, 6));
+                } else {
+                    setBorder(BorderFactory.createLineBorder(Color.BLACK, 6));
+                }
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                if(!isEnabled()){
+                    setBackground(new Color(211, 211, 211));
+                    return;
+                }
+                setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
             }
         });
     }
@@ -92,8 +116,9 @@ public class GridButton extends DefaultButton{
             gPanel.clearNoAdjMines(row, col);
         }
         
-
         gPanel.setClickedButtons();
+        gPanel.revalidate();
+        gPanel.repaint();
     }
 
     public void setMineIcon(){
