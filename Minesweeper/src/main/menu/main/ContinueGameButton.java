@@ -15,7 +15,6 @@ public class ContinueGameButton extends MenuButton{
             public void actionPerformed(ActionEvent e){
                 if(gPanel.hasGameStarted()){
                     mFrame.setContentPane(MainFrame.GAME);
-                    gPanel.timer();
                 }
             }
         });

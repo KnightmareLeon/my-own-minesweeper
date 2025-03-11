@@ -15,7 +15,6 @@ public abstract class StartNewGameButton extends MenuButton{
     protected void startNewGame(byte difficulty){
         this.gPanel.setUp(difficulty);
         mFrame.setContentPane(MainFrame.GAME);
-        this.gPanel.timer();
     }
 
 }

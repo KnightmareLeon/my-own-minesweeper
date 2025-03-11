@@ -55,6 +55,23 @@ public class GamePanel extends DefaultPanel{
     private int totalClickedButtons = 0;
     private int seconds = 0;
 
+    private Thread timer = new Thread(() -> {
+        while(gameStart){
+            
+            try{
+                if(mFrame.getContentPane() != (Container) this || gameOver){
+                    Thread.sleep(1);
+                } else {
+                    Thread.sleep(1000);
+                    seconds++;
+                    timerLabel.setText("Timer: " + seconds/60 + ":" + String.format("%02d", seconds%60));
+                }
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+    });
+
     public static final byte SHOVEL = 0;
     public static final byte FLAG = 1;
 
@@ -110,27 +127,20 @@ public class GamePanel extends DefaultPanel{
 
     public boolean hasGameStarted(){return gameStart;}
 
-    public void timer(){
-        Thread timer = new Thread(() -> {
-            while(mFrame.getContentPane() == (Container) this && !gameOver){
-                try{
-                    Thread.sleep(1000);
-                    seconds++;
-                    timerLabel.setText("Timer: " + seconds/60 + ":" + String.format("%02d", seconds%60));
-                } catch(InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        timer.start();
+    public Thread getTimer(){
+        return this.timer;
     }
 
     public void setUp(byte difficulty){
+        if(!gameStart){
+            timer.start();
+        }
         gameStart = true;
         seconds = 0;
         timerLabel.setText("Timer: 0:00");
         gridPanel.removeAll();
         resultLabel.setText(" ");
+        this.gameOver = false;
         firstCLickDone = false;
         byte size = 0;
         switch(difficulty){
