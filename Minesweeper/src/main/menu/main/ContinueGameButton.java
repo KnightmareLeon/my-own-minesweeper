@@ -13,7 +13,10 @@ public class ContinueGameButton extends MenuButton{
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                if(gPanel.hasGameStarted()){mFrame.setContentPane(MainFrame.GAME);}
+                if(gPanel.hasGameStarted()){
+                    mFrame.setContentPane(MainFrame.GAME);
+                    gPanel.timer();
+                }
             }
         });
     }

@@ -1,6 +1,7 @@
 package main.game;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -19,6 +20,7 @@ import main.menu.main.NewGameButton;
 
 public class GamePanel extends DefaultPanel{
     
+    private MainFrame mFrame;
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
     private Image flagImage = toolkit.getImage("src/resources/images/Flag.png");
@@ -65,6 +67,7 @@ public class GamePanel extends DefaultPanel{
     public static final byte HARD = 2; 
     
     public GamePanel(MainFrame mFrame){
+        this.mFrame = mFrame;
         this.setLayout(new BorderLayout());
         
         mainMenuButton = new MainMenuButton(mFrame);
@@ -109,7 +112,7 @@ public class GamePanel extends DefaultPanel{
 
     public void timer(){
         Thread timer = new Thread(() -> {
-            while(gameStart && !gameOver){
+            while(mFrame.getContentPane() == (Container) this && !gameOver){
                 try{
                     Thread.sleep(1000);
                     seconds++;
@@ -125,7 +128,7 @@ public class GamePanel extends DefaultPanel{
     public void setUp(byte difficulty){
         gameStart = true;
         seconds = 0;
-        this.timer();
+        timerLabel.setText("Timer: 0:00");
         gridPanel.removeAll();
         resultLabel.setText(" ");
         firstCLickDone = false;
@@ -154,7 +157,6 @@ public class GamePanel extends DefaultPanel{
                 
             }
         }
-        System.out.println(buttons[0][0].getPreferredSize());
         switch(difficulty){
             case EASY:
             case NORMAL:
