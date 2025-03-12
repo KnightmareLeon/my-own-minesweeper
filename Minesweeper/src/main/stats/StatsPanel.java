@@ -12,12 +12,14 @@ import javax.swing.JLabel;
 
 import main.DefaultPanel;
 import main.MainFrame;
+import main.game.GamePanel;
 import main.menu.MainMenuButton;
 
 public class StatsPanel extends DefaultPanel{
     private final String STATS_FILE_PATH = "src/resources/stats/stats.txt";
     private File statsFile;
-    
+    private boolean updatedStats = false;
+
     private int easyGamesPlayed, normalGamesPlayed, hardGamesPlayed;
     private int easyWins, normalWins, hardWins;
     private int easyFastestTime, normalFastestTime, hardFastestTime;
@@ -82,4 +84,52 @@ public class StatsPanel extends DefaultPanel{
         this.add(back, GBC);
         this.setUpFont(this);
     }
+
+    public void statsUpdated(){updatedStats = true;}
+
+    public void incrementGamesPlayed(byte difficulty){
+        switch(difficulty){
+            case GamePanel.EASY:
+                easyGamesPlayedLabel.setText("Easy Games Played: " + ++easyGamesPlayed);
+                break;
+            case GamePanel.NORMAL:
+                normalGamesPlayedLabel.setText("Normal Games Played: " + ++normalGamesPlayed);
+                break;
+            case GamePanel.HARD:
+                hardGamesPlayedLabel.setText("Hard Games Played: " + ++hardGamesPlayed);
+                break;
+        }
+        
+    }
+
+    public void incrementWins(byte difficulty){
+        switch(difficulty){
+            case GamePanel.EASY:
+                easyWinsLabel.setText("Easy Games Won: " + ++easyWins);
+                break;
+            case GamePanel.NORMAL:
+                normalWinsLabel.setText("Normal Games Won: " + ++normalWins);
+                break;
+            case GamePanel.HARD:
+                hardWinsLabel.setText("Hard Games Won: " + ++hardWins);
+                break;
+        }
+    }
+
+    public void setFastestTime(int time, byte difficulty){
+        if(difficulty == GamePanel.EASY && (easyWins== 1 || time < easyFastestTime)){
+            easyFastestTime = time;
+            easyFastestTimeLabel.setText("Easy Fastest Time: " + 
+            easyFastestTime/60 + ":" + String.format("%02d",easyFastestTime%60));
+        } else if(difficulty == GamePanel.NORMAL && (normalWins == 1 || time < normalFastestTime)){
+            normalFastestTime = time;
+            normalFastestTimeLabel.setText("Normal Fastest Time: " + 
+            normalFastestTime/60 + ":" + String.format("%02d",normalFastestTime%60));
+        } else if(difficulty == GamePanel.HARD && (hardWins == 1 || time < hardFastestTime)){
+            hardFastestTime = time;
+            hardFastestTimeLabel.setText("Hard Fastest Time: " + 
+            hardFastestTime/60 + ":" + String.format("%02d",hardFastestTime%60));
+        }
+    }
+
 }

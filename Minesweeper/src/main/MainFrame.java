@@ -10,10 +10,11 @@ import main.menu.start.StartNewGameMenuPanel;
 import main.stats.StatsPanel;
 
 public class MainFrame extends JFrame{
-    private GamePanel gPanel = new GamePanel(this);
+    private StatsPanel sPanel = new StatsPanel(this);
+    private GamePanel gPanel = new GamePanel(this, sPanel);
     private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel);
     private MainMenuPanel mMPanel = new MainMenuPanel(this, gPanel);
-    private StatsPanel sPanel = new StatsPanel(this);
+    
 
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final int WINDOW_SIZE = toolkit.getScreenSize().height - 50;

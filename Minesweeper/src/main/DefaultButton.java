@@ -8,7 +8,7 @@ import javax.swing.JButton;
 
 public abstract class DefaultButton extends JButton{
     private final Color DEFAULT_COLOR = new Color(209, 208, 206);
-    private final Color HOVER_COLOR = DEFAULT_COLOR.brighter();
+    private final Color HOVER_COLOR = DEFAULT_COLOR.darker();
     public DefaultButton(){
         this.setBackground(DEFAULT_COLOR);
         this.setFocusPainted(false);

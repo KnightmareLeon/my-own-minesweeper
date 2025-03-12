@@ -133,5 +133,8 @@ public class GridButton extends DefaultButton{
         this.setDisabledIcon(new ImageIcon(mineImage));
     }
 
-    
+    public void setFlagIcon(){
+        this.setIcon(new ImageIcon(flagImage));
+        this.setDisabledIcon(new ImageIcon(flagImage));
+    }
 }

@@ -17,10 +17,12 @@ import main.DefaultPanel;
 import main.MainFrame;
 import main.menu.MainMenuButton;
 import main.menu.main.NewGameButton;
+import main.stats.StatsPanel;
 
 public class GamePanel extends DefaultPanel{
     
     private MainFrame mFrame;
+    private StatsPanel sPanel;
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
     private Image flagImage = toolkit.getImage("src/resources/images/Flag.png");
@@ -49,6 +51,7 @@ public class GamePanel extends DefaultPanel{
     private boolean gameStart = false;
     private boolean gameOver = false;
     private boolean firstCLickDone = false;
+    private byte difficulty;
     private byte mines = 0;
     private byte flaggedMines = 0;
     private byte tool = 0;
@@ -83,8 +86,10 @@ public class GamePanel extends DefaultPanel{
     public static final byte NORMAL = 1;
     public static final byte HARD = 2; 
     
-    public GamePanel(MainFrame mFrame){
+    public GamePanel(MainFrame mFrame, StatsPanel sPanel){
         this.mFrame = mFrame;
+        this.sPanel = sPanel;
+        
         this.setLayout(new BorderLayout());
         
         mainMenuButton = new MainMenuButton(mFrame);
@@ -135,12 +140,13 @@ public class GamePanel extends DefaultPanel{
         if(!gameStart){
             timer.start();
         }
+        this.difficulty = difficulty;
         gameStart = true;
         seconds = 0;
         timerLabel.setText("Timer: 0:00");
         gridPanel.removeAll();
         resultLabel.setText(" ");
-        this.gameOver = false;
+        gameOver = false;
         firstCLickDone = false;
         byte size = 0;
         switch(difficulty){
@@ -178,6 +184,9 @@ public class GamePanel extends DefaultPanel{
                 this.setUpFont(bottomPanel, 20);
                 break;
         }
+        sPanel.incrementGamesPlayed(difficulty);
+        this.revalidate();
+        this.repaint();
     }
 
     public boolean isFirstClickDone(){return firstCLickDone;}
@@ -303,10 +312,12 @@ public class GamePanel extends DefaultPanel{
     public void gameWin(){
         for(GridButton mine: mineButtons){
             mine.disableGridButton();
-            mine.setText("F");
+            mine.setFlagIcon();
         }
         resultLabel.setText("You Win!");
         gameOver = true;
+        sPanel.incrementWins(difficulty);
+        sPanel.setFastestTime(seconds, difficulty);
     }
     
 }
