@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
@@ -15,9 +17,9 @@ public class MainFrame extends JFrame{
     private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel);
     private MainMenuPanel mMPanel = new MainMenuPanel(this, gPanel);
     
-
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final int WINDOW_SIZE = toolkit.getScreenSize().height - 50;
+
     public static final byte MAIN_MENU = 0;
     public static final byte START_NEW_GAME_MENU = 1;
     public static final byte GAME = 2;
@@ -29,8 +31,16 @@ public class MainFrame extends JFrame{
         this.setLocationRelativeTo(null);
         this.setTitle("Minesweeper");
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
+        this.addWindowListener(new WindowAdapter() {
+            
+            @Override
+            public void windowClosing(WindowEvent e){
+                sPanel.saveStats();
+                System.exit(0);
+            }
+        });
     }
 
     public void setContentPane(byte value){

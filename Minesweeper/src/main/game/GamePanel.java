@@ -185,6 +185,7 @@ public class GamePanel extends DefaultPanel{
                 break;
         }
         sPanel.incrementGamesPlayed(difficulty);
+        sPanel.statsUpdated();
         this.revalidate();
         this.repaint();
     }

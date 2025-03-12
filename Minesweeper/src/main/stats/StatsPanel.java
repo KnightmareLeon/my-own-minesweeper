@@ -3,6 +3,7 @@ package main.stats;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.awt.GridBagConstraints;
@@ -129,6 +130,22 @@ public class StatsPanel extends DefaultPanel{
             hardFastestTime = time;
             hardFastestTimeLabel.setText("Hard Fastest Time: " + 
             hardFastestTime/60 + ":" + String.format("%02d",hardFastestTime%60));
+        }
+    }
+
+    public void saveStats(){
+        if(updatedStats){
+            try {
+                statsFile.delete();
+                statsFile.createNewFile();
+                FileWriter writer = new FileWriter(statsFile);
+                writer.write(easyGamesPlayed + "\n" + easyWins + "\n" + easyFastestTime + "\n" +
+                normalGamesPlayed + "\n" + normalWins + "\n" + normalFastestTime + "\n" +
+                hardGamesPlayed + "\n" + hardWins + "\n" + hardFastestTime);
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
