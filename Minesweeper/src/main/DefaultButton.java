@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.KeyStroke;
 
 public abstract class DefaultButton extends JButton{
     private final Color DEFAULT_COLOR = new Color(209, 208, 206);
@@ -12,6 +13,7 @@ public abstract class DefaultButton extends JButton{
     public DefaultButton(){
         this.setBackground(DEFAULT_COLOR);
         this.setFocusPainted(false);
+        this.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
         this.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent e){
