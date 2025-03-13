@@ -34,7 +34,6 @@ public class MainFrame extends JFrame{
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
         this.addWindowListener(new WindowAdapter() {
-            
             @Override
             public void windowClosing(WindowEvent e){
                 sPanel.saveStats();
