@@ -133,7 +133,7 @@ public class GamePanel extends DefaultPanel{
         this.add(gridPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
 
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F"), "change tool");
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "change tool");
         this.getActionMap().put("change tool", new AbstractAction() {
 
             @Override
