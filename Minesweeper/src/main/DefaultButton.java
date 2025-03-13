@@ -12,7 +12,6 @@ public abstract class DefaultButton extends JButton{
     public DefaultButton(){
         this.setBackground(DEFAULT_COLOR);
         this.setFocusPainted(false);
-        this.setFocusable(false);
         this.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent e){
