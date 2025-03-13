@@ -28,7 +28,17 @@ public class GridButton extends DefaultButton{
         this.setUI(new MetalButtonUI(){
             @Override
             protected Color getDisabledTextColor(){
-                return Color.BLACK;
+                switch(adjMines){
+                    case 1: return Color.BLUE;
+                    case 2: return Color.GREEN;
+                    case 3: return Color.RED;
+                    case 4: return Color.BLUE.darker();
+                    case 5: return new Color(150, 75, 0); //Brown
+                    case 6: return Color.CYAN;
+                    case 7: return Color.BLACK;
+                    case 8: return Color.GRAY;
+                    default: return Color.WHITE;
+                }
             }
         });
         this.addActionListener(new ActionListener() {
@@ -42,7 +52,7 @@ public class GridButton extends DefaultButton{
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 if(!isEnabled()){
-                    setBackground(new Color(211, 211, 211));
+                    setBackground(new Color(250, 250, 250));
                     return;
                 }
                 if(gPanel.getTool() == GamePanel.FLAG){
@@ -54,7 +64,7 @@ public class GridButton extends DefaultButton{
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 if(!isEnabled()){
-                    setBackground(new Color(211, 211, 211));
+                    setBackground(new Color(250, 250, 250));
                     return;
                 }
                 setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -85,7 +95,7 @@ public class GridButton extends DefaultButton{
     }
 
     public void disableGridButton(){
-        this.setBackground(new Color(211, 211, 211));
+        this.setBackground(new Color(250, 250, 250));
         this.setBorder(null);
         this.setEnabled(false);
     }
