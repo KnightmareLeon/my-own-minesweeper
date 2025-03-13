@@ -8,10 +8,14 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import main.DefaultPanel;
 import main.MainFrame;
@@ -23,6 +27,7 @@ public class GamePanel extends DefaultPanel{
     
     private MainFrame mFrame;
     private StatsPanel sPanel;
+
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
     private Image flagImage = toolkit.getImage("src/resources/images/Flag.png");
@@ -92,42 +97,58 @@ public class GamePanel extends DefaultPanel{
         
         this.setLayout(new BorderLayout());
         
-        mainMenuButton = new MainMenuButton(mFrame);
-        newGameButton = new NewGameButton(mFrame);
+        this.mainMenuButton = new MainMenuButton(mFrame);
+        this.newGameButton = new NewGameButton(mFrame);
         
-        mainMenuButton.setPreferredSize(new Dimension(100, 50));
-        newGameButton.setPreferredSize(new Dimension(100, 50));
+        this.mainMenuButton.setPreferredSize(new Dimension(100, 50));
+        this.newGameButton.setPreferredSize(new Dimension(100, 50));
         
-        mainMenuButton.setText("Main");
-        newGameButton.setText("New");
+        this.mainMenuButton.setText("Main");
+        this.newGameButton.setText("New");
 
-        shovelCursor = toolkit.createCustomCursor(
+        this.shovelCursor = toolkit.createCustomCursor(
             shovelImage, 
             new Point(gridPanel.getX(),gridPanel.getY()), 
             "shovel");
-        flagCursor = toolkit.createCustomCursor(
+        this.flagCursor = toolkit.createCustomCursor(
             flagImage, 
             new Point(gridPanel.getX(),gridPanel.getY()), 
             "flag");
         
-        gridPanel.setCursor(shovelCursor);
+        this.gridPanel.setCursor(shovelCursor);
 
-        toolButtonGroup.add(shovelButton);
-        toolButtonGroup.add(flagButton);
+        this.toolButtonGroup.add(shovelButton);
+        this.toolButtonGroup.add(flagButton);
 
-        topPanel.add(mainMenuButton);
-        topPanel.add(newGameButton);
-        topPanel.add(shovelButton);
-        topPanel.add(flagButton);
-        topPanel.add(minesLabel);
+        this.topPanel.add(mainMenuButton);
+        this.topPanel.add(newGameButton);
+        this.topPanel.add(shovelButton);
+        this.topPanel.add(flagButton);
+        this.topPanel.add(minesLabel);
         
-        bottomPanel.add(resultLabel);
-        bottomPanel.add(timerLabel);
+        this.bottomPanel.add(resultLabel);
+        this.bottomPanel.add(timerLabel);
 
         this.add(topPanel, BorderLayout.NORTH);
         this.add(gridPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
 
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F"), "change tool");
+        this.getActionMap().put("change tool", new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(tool == SHOVEL){
+                    setTool(FLAG);
+                    flagButton.setSelected(true);
+                } else {
+                    setTool(SHOVEL);
+                    shovelButton.setSelected(true);
+                }
+
+            }
+            
+        });
     }
 
     public boolean hasGameStarted(){return gameStart;}
@@ -137,55 +158,45 @@ public class GamePanel extends DefaultPanel{
     }
 
     public void setUp(byte difficulty){
-        if(!gameStart){
-            timer.start();
-        }
+        if(!gameStart){timer.start();}
         this.difficulty = difficulty;
-        gameStart = true;
-        seconds = 0;
-        timerLabel.setText("Timer: 0:00");
-        gridPanel.removeAll();
-        resultLabel.setText(" ");
-        gameOver = false;
-        firstCLickDone = false;
+        this.gameOver = this.firstCLickDone = false;
+        this.gameStart = true;
+        this.seconds = 0;
+        this.tool = SHOVEL;
+        this.timerLabel.setText("Timer: 0:00");
+        this.resultLabel.setText(" ");
+        this.gridPanel.removeAll();
         byte size = 0;
         switch(difficulty){
-            case EASY:
-                size = 9; mines = flaggedMines = 10;
-                break;
-            case NORMAL:
-                size = 16; mines = flaggedMines = 40;
-                break;
-            case HARD: 
-                size = 30; mines = flaggedMines = 99;
-                break;
+            case EASY: size = 9; mines = this.flaggedMines = 10; break;
+            case NORMAL: size = 16; mines = this.flaggedMines = 40; break;
+            case HARD: size = 30; mines = this.flaggedMines = 99; break;
         }
         this.totalClickedButtons = size * size;
         this.updateMines(SET);
-        buttons = new GridButton[size][size];
-        mineButtons = new GridButton[mines];
-        grid = new GridLayout(size, size);
-        gridPanel.setLayout(grid);
+        this.buttons = new GridButton[size][size];
+        this.mineButtons = new GridButton[mines];
+        this.grid = new GridLayout(size, size);
+        this.gridPanel.setLayout(grid);
         for(byte row = 0; row < size; row++){
             for(byte col = 0; col < size; col++){
-                buttons[row][col] = new GridButton(this, row, col);
-                gridPanel.add(buttons[row][col]);
-                buttons[row][col].setFlagImage(flagImage, size);
+                this.buttons[row][col] = new GridButton(this, row, col);
+                this.gridPanel.add(buttons[row][col]);
+                this.buttons[row][col].setFlagImage(flagImage, size);
             }
         }
         switch(difficulty){
             case EASY:
-            case NORMAL:
-                this.setUpFont(this, 20);
-                break;
+            case NORMAL: this.setUpFont(this, 20); break;
             case HARD:
                 this.setUpFont(topPanel,20);
                 this.setUpFont(gridPanel,15);
                 this.setUpFont(bottomPanel, 20);
                 break;
         }
-        sPanel.incrementGamesPlayed(difficulty);
-        sPanel.statsUpdated();
+        this.sPanel.incrementGamesPlayed(difficulty);
+        this.sPanel.statsUpdated();
         this.revalidate();
         this.repaint();
     }
@@ -320,5 +331,5 @@ public class GamePanel extends DefaultPanel{
         sPanel.incrementWins(difficulty);
         sPanel.setFastestTime(seconds, difficulty);
     }
-    
+
 }
