@@ -13,6 +13,7 @@ public class StatsButton extends MenuButton{
             @Override
             public void actionPerformed(ActionEvent e){
                 mFrame.setContentPane(MainFrame.STATS);
+                playSound();
             }
         });
     }

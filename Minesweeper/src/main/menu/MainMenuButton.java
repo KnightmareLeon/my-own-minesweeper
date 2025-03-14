@@ -13,6 +13,7 @@ public class MainMenuButton extends MenuButton{
             @Override
             public void actionPerformed(ActionEvent e){
                 mFrame.setContentPane(MainFrame.MAIN_MENU);
+                playSound();
             }
         });
     }

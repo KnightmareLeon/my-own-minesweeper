@@ -21,7 +21,7 @@ public class MainFrame extends JFrame{
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final int WINDOW_SIZE = toolkit.getScreenSize().height - 50;
     private final Image WINDOW_ICON = toolkit.getImage("src/resources/images/Mine.png");
-
+    
     public static final byte MAIN_MENU = 0;
     public static final byte START_NEW_GAME_MENU = 1;
     public static final byte GAME = 2;

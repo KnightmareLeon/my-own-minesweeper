@@ -17,6 +17,7 @@ public class App {
         try {
             UIManager.put("TitlePane.font", Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(
                     new File("src/resources/fonts/Retro Gaming.ttf"))).deriveFont(Font.PLAIN, 30));
+            
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }

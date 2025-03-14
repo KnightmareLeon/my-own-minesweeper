@@ -14,6 +14,7 @@ public class NewGameButton extends MenuButton{
             @Override
             public void actionPerformed(ActionEvent e) {
                 mFrame.setContentPane(MainFrame.START_NEW_GAME_MENU);
+                playSound();
             }
             
         });
