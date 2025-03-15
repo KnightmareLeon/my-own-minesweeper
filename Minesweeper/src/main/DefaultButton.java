@@ -25,8 +25,10 @@ public abstract class DefaultButton extends JButton{
 
     public DefaultButton(){
         try {
+            audioStream = AudioSystem.getAudioInputStream(audioFile);
             audioClip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
+            audioClip.open(audioStream);
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -46,25 +48,8 @@ public abstract class DefaultButton extends JButton{
     }
 
     protected void playSound(){
-        try {
-            audioStream = AudioSystem.getAudioInputStream(audioFile);
-            audioClip.open(audioStream);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
+        audioClip.setFramePosition(0);
         audioClip.start();
-        try {
-            Thread.sleep(900);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        audioClip.stop();
-        audioClip.close();
-        try {
-            audioStream.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        
     }
 }
