@@ -50,6 +50,5 @@ public abstract class DefaultButton extends JButton{
     protected void playSound(){
         audioClip.setFramePosition(0);
         audioClip.start();
-        
     }
 }

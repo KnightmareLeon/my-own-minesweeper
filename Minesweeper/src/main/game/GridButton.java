@@ -101,6 +101,7 @@ public class GridButton extends DefaultButton{
     }
 
     public void clicked(GamePanel gPanel){
+        this.playSound();
         if(gPanel.getTool() == GamePanel.FLAG && gPanel.isFirstClickDone()){
             if(!flagged){
                 setIcon(new ImageIcon(flagImage));
