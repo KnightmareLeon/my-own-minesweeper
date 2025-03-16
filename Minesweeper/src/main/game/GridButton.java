@@ -5,14 +5,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.io.File;
-import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.metal.MetalButtonUI;
@@ -29,9 +22,6 @@ public class GridButton extends DefaultButton{
     private Image mineImage;
     private Image flagImage;
 
-    private File mineSound;
-    private AudioInputStream mineAudioStream;
-    private Clip mineAudioClip;
     public GridButton(GamePanel gPanel, byte row, byte col){
         this.row = row;
         this.col = col;
@@ -111,18 +101,6 @@ public class GridButton extends DefaultButton{
         this.setEnabled(false);
     }
 
-    private void playMineSound(){
-        mineSound = new File("src/resources/sounds/explosion-123793.wav");
-        try {
-            mineAudioStream = AudioSystem.getAudioInputStream(mineSound);
-            mineAudioClip = AudioSystem.getClip();
-            mineAudioClip.open(mineAudioStream);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
-        mineAudioClip.start();   
-    }
-
     public void clicked(GamePanel gPanel){
         this.playSound();
         if(gPanel.getTool() == GamePanel.FLAG && gPanel.isFirstClickDone()){
@@ -151,7 +129,6 @@ public class GridButton extends DefaultButton{
         } else if(hasMine()){
             setMineIcon();
             gPanel.gameOver();
-            playMineSound();
         } else if(adjMines > 0){
             setText(Byte.toString(adjMines));
         } else {
