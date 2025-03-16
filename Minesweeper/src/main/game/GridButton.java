@@ -10,7 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.metal.MetalButtonUI;
 
-import main.DefaultButton;
+import main.defaults.DefaultButton;
 
 public class GridButton extends DefaultButton{
     private boolean mine = false; 

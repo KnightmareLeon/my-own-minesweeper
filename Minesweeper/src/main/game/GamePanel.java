@@ -24,8 +24,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-import main.DefaultPanel;
-import main.MainFrame;
+import main.defaults.DefaultPanel;
+import main.frames.MainFrame;
 import main.menu.MainMenuButton;
 import main.menu.main.NewGameButton;
 import main.stats.StatsPanel;

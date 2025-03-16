@@ -4,7 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import main.DefaultPanel;
+import main.defaults.DefaultPanel;
 
 public abstract class MenuPanel extends DefaultPanel {
     protected final GridBagConstraints GBC = new GridBagConstraints(); 

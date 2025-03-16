@@ -3,7 +3,7 @@ package main.menu.start;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import main.MainFrame;
+import main.frames.MainFrame;
 import main.game.GamePanel;
 
 public class StartEasyGameButton extends StartNewGameButton{

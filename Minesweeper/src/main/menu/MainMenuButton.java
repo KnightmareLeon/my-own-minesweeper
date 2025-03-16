@@ -3,7 +3,7 @@ package main.menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import main.MainFrame;
+import main.frames.MainFrame;
 
 public class MainMenuButton extends MenuButton{
     public MainMenuButton(MainFrame mFrame){

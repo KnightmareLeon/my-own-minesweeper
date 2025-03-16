@@ -11,8 +11,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
-import main.DefaultPanel;
-import main.MainFrame;
+import main.defaults.DefaultPanel;
+import main.frames.MainFrame;
 import main.game.GamePanel;
 import main.menu.MainMenuButton;
 

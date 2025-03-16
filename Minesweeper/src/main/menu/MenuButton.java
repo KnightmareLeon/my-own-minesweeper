@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 
-import main.DefaultButton;
+import main.defaults.DefaultButton;
 
 public abstract class MenuButton extends DefaultButton{
     public MenuButton(){

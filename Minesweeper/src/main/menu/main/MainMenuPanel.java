@@ -1,6 +1,6 @@
 package main.menu.main;
 
-import main.MainFrame;
+import main.frames.MainFrame;
 import main.game.GamePanel;
 import main.menu.MenuPanel;
 
