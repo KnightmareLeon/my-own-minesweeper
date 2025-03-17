@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.KeyStroke;
 
 public abstract class DefaultButton extends JButton{
-    private final Color DEFAULT_COLOR = new Color(209, 208, 206);
+    protected final Color DEFAULT_COLOR = new Color(209, 208, 206);
     private final Color HOVER_COLOR = DEFAULT_COLOR.darker();
     private final String AUDIO_FILE_PATH = "src/resources/sounds/click-buttons-ui-menu-sounds-effects-button-7-203601.wav";
 

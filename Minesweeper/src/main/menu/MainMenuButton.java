@@ -7,13 +7,12 @@ import main.frames.MainFrame;
 
 public class MainMenuButton extends MenuButton{
     public MainMenuButton(MainFrame mFrame){
-        super();
+        super(mFrame);
         this.setText("Main Menu");
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                mFrame.setContentPane(MainFrame.MAIN_MENU);
-                playSound();
+                goToPanel(MainFrame.MAIN_MENU);
             }
         });
     }

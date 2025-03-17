@@ -9,13 +9,13 @@ import main.menu.MenuButton;
 
 public class ContinueGameButton extends MenuButton{
     public ContinueGameButton(MainFrame mFrame, GamePanel gPanel){
+        super(mFrame);
         this.setText("Continue Game");
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 if(gPanel.hasGameStarted()){
-                    mFrame.setContentPane(MainFrame.GAME);
-                    playSound();
+                    goToPanel(MainFrame.GAME);
                 }
             }
         });

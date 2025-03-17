@@ -8,12 +8,12 @@ import main.menu.MenuButton;
 
 public class StatsButton extends MenuButton{
     public StatsButton(MainFrame mFrame){
+        super(mFrame);
         this.setText("Stats");
         this.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                mFrame.setContentPane(MainFrame.STATS);
-                playSound();
+                goToPanel(MainFrame.STATS);
             }
         });
     }

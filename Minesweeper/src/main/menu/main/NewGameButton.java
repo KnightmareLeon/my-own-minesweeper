@@ -8,13 +8,13 @@ import main.menu.MenuButton;
 
 public class NewGameButton extends MenuButton{
     public NewGameButton(MainFrame mFrame){
+        super(mFrame);
         this.setText("New Game");
         this.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                mFrame.setContentPane(MainFrame.START_NEW_GAME_MENU);
-                playSound();
+                goToPanel(MainFrame.START_NEW_GAME_MENU);
             }
             
         });

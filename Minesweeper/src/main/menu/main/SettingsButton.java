@@ -8,11 +8,12 @@ import main.menu.MenuButton;
 
 public class SettingsButton extends MenuButton{
     public SettingsButton(MainFrame mFrame){
+        super(mFrame);
         this.setText("Settings");
         this.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                mFrame.setContentPane(MainFrame.SETTINGS);
+                goToPanel(MainFrame.STATS);
             }
         });
     }

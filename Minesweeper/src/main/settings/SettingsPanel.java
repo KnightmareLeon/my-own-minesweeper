@@ -11,5 +11,6 @@ public class SettingsPanel extends DefaultPanel{
         this.mMButton = new MainMenuButton(mFrame);
 
         this.add(mMButton);
+        this.setUpFont(this);
     }
 }
