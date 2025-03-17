@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import main.game.GamePanel;
 import main.menu.main.MainMenuPanel;
 import main.menu.start.StartNewGameMenuPanel;
+import main.settings.SettingsPanel;
 import main.stats.StatsPanel;
 
 public class MainFrame extends JFrame{
@@ -17,7 +18,8 @@ public class MainFrame extends JFrame{
     private GamePanel gPanel = new GamePanel(this, sPanel);
     private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel);
     private MainMenuPanel mMPanel = new MainMenuPanel(this, gPanel);
-    
+    private SettingsPanel setPanel = new SettingsPanel(this);
+
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final int WINDOW_SIZE = toolkit.getScreenSize().height - 50;
     private final Image WINDOW_ICON = toolkit.getImage("src/resources/images/Mine.png");
@@ -26,6 +28,7 @@ public class MainFrame extends JFrame{
     public static final byte START_NEW_GAME_MENU = 1;
     public static final byte GAME = 2;
     public static final byte STATS = 3;
+    public static final byte SETTINGS = 4;
 
     public MainFrame(){
         this.setSize(WINDOW_SIZE, WINDOW_SIZE);
@@ -56,6 +59,8 @@ public class MainFrame extends JFrame{
                 this.setContentPane(gPanel);break;
             case STATS:
                 this.setContentPane(sPanel);break;
+            case SETTINGS:
+                this.setContentPane(setPanel);break;
         }
         this.revalidate();
         this.repaint();
