@@ -9,9 +9,9 @@ import javax.swing.JFrame;
 
 import main.game.GamePanel;
 import main.menu.main.MainMenuPanel;
+import main.menu.settings.SettingsPanel;
 import main.menu.start.StartNewGameMenuPanel;
-import main.settings.SettingsPanel;
-import main.stats.StatsPanel;
+import main.menu.stats.StatsPanel;
 
 public class MainFrame extends JFrame{
     private StatsPanel sPanel = new StatsPanel(this);

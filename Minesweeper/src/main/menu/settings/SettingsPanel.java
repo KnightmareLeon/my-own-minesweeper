@@ -1,4 +1,4 @@
-package main.settings;
+package main.menu.settings;
 
 import main.defaults.DefaultPanel;
 import main.frames.MainFrame;

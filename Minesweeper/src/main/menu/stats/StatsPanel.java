@@ -1,4 +1,4 @@
-package main.stats;
+package main.menu.stats;
 
 import java.io.BufferedReader;
 import java.io.File;

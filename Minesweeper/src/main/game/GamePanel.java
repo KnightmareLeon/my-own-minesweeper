@@ -28,7 +28,7 @@ import main.defaults.DefaultPanel;
 import main.frames.MainFrame;
 import main.menu.MainMenuButton;
 import main.menu.main.NewGameButton;
-import main.stats.StatsPanel;
+import main.menu.stats.StatsPanel;
 
 public class GamePanel extends DefaultPanel{
     
