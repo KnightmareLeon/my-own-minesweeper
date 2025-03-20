@@ -6,17 +6,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
 import javax.swing.JLabel;
 
-import main.defaults.DefaultPanel;
 import main.frames.MainFrame;
 import main.game.GamePanel;
 import main.menu.MainMenuButton;
+import main.menu.MenuPanel;
 
-public class StatsPanel extends DefaultPanel{
+public class StatsPanel extends MenuPanel{
     private final String STATS_FILE_PATH = "src/resources/stats/stats.txt";
     private File statsFile;
     private boolean updatedStats = false;
@@ -63,26 +60,20 @@ public class StatsPanel extends DefaultPanel{
         hardWinsLabel = new JLabel("Hard Games Won: " + hardWins);
         hardFastestTimeLabel = new JLabel("Hard Fastest Time: " +
         hardFastestTime/60 + ":" + String.format("%02d",hardFastestTime%60));
+    
+        this.addComponent(easyGamesPlayedLabel);
+        this.addComponent(easyWinsLabel);
+        this.addComponent(easyFastestTimeLabel);
 
-        GridBagConstraints GBC = new GridBagConstraints();
-        this.setLayout(new GridBagLayout());
-        GBC.gridwidth = GridBagConstraints.REMAINDER;
-        GBC.fill = GridBagConstraints.HORIZONTAL;
-        GBC.insets.set(0, 0, 30, 0);
-        GBC.gridx = GBC.gridy = 0;
-        this.add(easyGamesPlayedLabel, GBC); GBC.gridy++;
-        this.add(easyWinsLabel, GBC); GBC.gridy++;
-        this.add(easyFastestTimeLabel, GBC); GBC.gridy++;
+        this.addComponent(normalGamesPlayedLabel);
+        this.addComponent(normalWinsLabel);
+        this.addComponent(normalFastestTimeLabel);
 
-        this.add(normalGamesPlayedLabel, GBC); GBC.gridy++;
-        this.add(normalWinsLabel, GBC); GBC.gridy++;
-        this.add(normalFastestTimeLabel, GBC); GBC.gridy++;
+        this.addComponent(hardGamesPlayedLabel);
+        this.addComponent(hardWinsLabel);
+        this.addComponent(hardFastestTimeLabel);
 
-        this.add(hardGamesPlayedLabel, GBC); GBC.gridy++;
-        this.add(hardWinsLabel, GBC); GBC.gridy++;
-        this.add(hardFastestTimeLabel, GBC); GBC.gridy++;
-
-        this.add(back, GBC);
+        this.addComponent(back);
         this.setUpFont(this);
     }
 

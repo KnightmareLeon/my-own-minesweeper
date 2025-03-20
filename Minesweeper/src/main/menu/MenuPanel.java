@@ -1,5 +1,6 @@
 package main.menu;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,8 +17,8 @@ public abstract class MenuPanel extends DefaultPanel {
         this.GBC.gridx = this.GBC.gridy = 0;
     }
 
-    protected void addButton(MenuButton menuButton){
-        this.add(menuButton, GBC);
+    protected void addComponent(Component component){
+        this.add(component, GBC);
         this.GBC.gridy++;
     }
 }

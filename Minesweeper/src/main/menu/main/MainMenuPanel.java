@@ -14,10 +14,10 @@ public class MainMenuPanel extends MenuPanel{
         this.newGameButton = new NewGameButton(mFrame);
         this.statsButton = new StatsButton(mFrame);
         this.setsButton = new SettingsButton(mFrame);
-        this.addButton(conGameButton);
-        this.addButton(newGameButton);
-        this.addButton(statsButton);
-        this.addButton(setsButton);
+        this.addComponent(conGameButton);
+        this.addComponent(newGameButton);
+        this.addComponent(statsButton);
+        this.addComponent(setsButton);
         this.setUpFont(this);
     }
 }

@@ -13,7 +13,7 @@ public class SettingsButton extends MenuButton{
         this.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                goToPanel(MainFrame.STATS);
+                goToPanel(MainFrame.SETTINGS);
             }
         });
     }

@@ -15,10 +15,10 @@ public class StartNewGameMenuPanel extends MenuPanel{
         nGButton = new StartNormalGameButton(mFrame, gPanel);
         hGButton = new StartHardGameButton(mFrame, gPanel);
         back = new MainMenuButton(mFrame);
-        this.addButton(eGButton);
-        this.addButton(nGButton);
-        this.addButton(hGButton);
-        this.addButton(back);
+        this.addComponent(eGButton);
+        this.addComponent(nGButton);
+        this.addComponent(hGButton);
+        this.addComponent(back);
         this.setUpFont(this);
     }
 }

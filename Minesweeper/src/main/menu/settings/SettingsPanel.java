@@ -1,16 +1,16 @@
 package main.menu.settings;
 
-import main.defaults.DefaultPanel;
 import main.frames.MainFrame;
 import main.menu.MainMenuButton;
+import main.menu.MenuPanel;
 
-public class SettingsPanel extends DefaultPanel{
+public class SettingsPanel extends MenuPanel{
     private MainMenuButton mMButton;
 
     public SettingsPanel(MainFrame mFrame){
         this.mMButton = new MainMenuButton(mFrame);
 
-        this.add(mMButton);
+        this.addComponent(mMButton);
         this.setUpFont(this);
     }
 }
