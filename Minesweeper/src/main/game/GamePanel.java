@@ -144,7 +144,7 @@ public class GamePanel extends DefaultPanel{
         this.add(gridPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
 
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F"), "change tool");
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "change tool");
         this.getActionMap().put("change tool", new AbstractAction() {
 
             @Override
@@ -164,9 +164,9 @@ public class GamePanel extends DefaultPanel{
 
     public boolean hasGameStarted(){return gameStart;}
 
-    public Thread getTimer(){
-        return this.timer;
-    }
+    public boolean isGameOver(){return gameOver;}
+
+    public Thread getTimer(){return this.timer;}
 
     public void setUp(byte difficulty){
         if(!gameStart){timer.start();}

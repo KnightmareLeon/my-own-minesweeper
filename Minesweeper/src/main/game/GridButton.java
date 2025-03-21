@@ -48,27 +48,29 @@ public class GridButton extends DefaultButton{
                 clicked(gPanel);
             }
         });
-
+        this.removeMouseListener(DEFAULT_HOVER_BEHAVIOR);
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                if(!isEnabled()){
-                    setBackground(new Color(250, 250, 250));
-                    return;
+                if(gPanel.isGameOver()){return;}
+                if(isEnabled()){
+                    setBackground(DEFAULT_HOVER_COLOR);
+                    if (gPanel.getTool() == GamePanel.FLAG){
+                        setBorder(BorderFactory.createLineBorder(Color.RED, 6));
+                    } else {
+                        setBorder(BorderFactory.createLineBorder(Color.BLACK, 6));
+                    }
                 }
-                if(gPanel.getTool() == GamePanel.FLAG){
-                    setBorder(BorderFactory.createLineBorder(Color.RED, 6));
-                } else {
-                    setBorder(BorderFactory.createLineBorder(Color.BLACK, 6));
-                }
+                
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                if(!isEnabled()){
-                    setBackground(new Color(250, 250, 250));
-                    return;
+                if(gPanel.isGameOver()){return;}
+                if(isEnabled()){
+                    setBackground(DEFAULT_COLOR);
+                    setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
                 }
-                setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+                
             }
         });
     }

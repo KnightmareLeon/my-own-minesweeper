@@ -16,7 +16,19 @@ import javax.swing.KeyStroke;
 
 public abstract class DefaultButton extends JButton{
     protected final Color DEFAULT_COLOR = new Color(209, 208, 206);
-    private final Color HOVER_COLOR = DEFAULT_COLOR.darker();
+    protected final Color DEFAULT_HOVER_COLOR = DEFAULT_COLOR.darker();
+
+    protected final MouseAdapter DEFAULT_HOVER_BEHAVIOR = new MouseAdapter() {
+        @Override
+            public void mouseEntered(MouseEvent e){
+                DefaultButton.this.setBackground(DEFAULT_HOVER_COLOR);
+            }
+        @Override
+        public void mouseExited(MouseEvent e){
+            DefaultButton.this.setBackground(DEFAULT_COLOR);
+        }
+    };
+
     private final String AUDIO_FILE_PATH = "src/resources/sounds/click-buttons-ui-menu-sounds-effects-button-7-203601.wav";
 
     private File audioFile = new File(AUDIO_FILE_PATH);
@@ -34,16 +46,7 @@ public abstract class DefaultButton extends JButton{
         this.setBackground(DEFAULT_COLOR);
         this.setFocusPainted(false);
         this.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
-        this.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseEntered(MouseEvent e){
-                DefaultButton.this.setBackground(HOVER_COLOR);
-            }
-            @Override
-            public void mouseExited(MouseEvent e){
-                DefaultButton.this.setBackground(DEFAULT_COLOR);
-            }
-        });
+        this.addMouseListener(DEFAULT_HOVER_BEHAVIOR);
     }
 
     protected void playSound(){
