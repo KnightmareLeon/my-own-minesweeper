@@ -18,7 +18,7 @@ public class MainFrame extends JFrame{
     private GamePanel gPanel = new GamePanel(this, sPanel);
     private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel);
     private MainMenuPanel mMPanel = new MainMenuPanel(this, gPanel);
-    private SettingsPanel setPanel = new SettingsPanel(this);
+    private SettingsPanel setPanel = new SettingsPanel(this, gPanel);
 
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final int WINDOW_SIZE = toolkit.getScreenSize().height - 50;

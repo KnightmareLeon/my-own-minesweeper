@@ -73,6 +73,7 @@ public class GamePanel extends DefaultPanel{
     private byte tool = 0;
     private int totalClickedButtons = 0;
     private int seconds = 0;
+    private String changeToolKey = "SPACE";
 
     private Thread timer = new Thread(() -> {
         while(gameStart){
@@ -83,7 +84,8 @@ public class GamePanel extends DefaultPanel{
                 } else {
                     Thread.sleep(1000);
                     seconds++;
-                    timerLabel.setText("Timer: " + seconds/60 + ":" + String.format("%02d", seconds%60));
+                    timerLabel.setText("Timer: " + seconds/60 + ":" 
+                    + String.format("%02d", seconds%60));
                 }
             } catch(InterruptedException e){
                 e.printStackTrace();
@@ -144,7 +146,9 @@ public class GamePanel extends DefaultPanel{
         this.add(gridPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
 
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "change tool");
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            KeyStroke.getKeyStroke(changeToolKey), 
+            "change tool");
         this.getActionMap().put("change tool", new AbstractAction() {
 
             @Override
@@ -168,6 +172,10 @@ public class GamePanel extends DefaultPanel{
 
     public Thread getTimer(){return this.timer;}
 
+    public String getChangeToolKey(){return this.changeToolKey;}
+
+    public void setChangeToolKey(String changeToolKey){this.changeToolKey = changeToolKey;}
+    
     public void setUp(byte difficulty){
         if(!gameStart){timer.start();}
         this.difficulty = difficulty;
