@@ -1,41 +1,30 @@
 package main.menu.settings;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 
-import main.defaults.DefaultButton;
+import main.frames.MainFrame;
 import main.game.GamePanel;
+import main.menu.MenuButton;
 
-public class ChangeToolKeyButton extends DefaultButton{
-    private KeyListener changeToolkeyListener; 
-
-    public ChangeToolKeyButton(JLabel currentChangeToolKey, GamePanel gPanel){
+public class ChangeToolKeyButton extends MenuButton{
+    private ChangeToolKeyListener cToolKeyListener;
+    public ChangeToolKeyButton(MainFrame mFrame, JLabel currentChangeToolKey, GamePanel gPanel){
+        super(mFrame);
+        cToolKeyListener = new ChangeToolKeyListener(mFrame, currentChangeToolKey, gPanel);
         this.setText("Change Tool Key");
-        this.changeToolkeyListener = new KeyListener() {
+        this.addActionListener(new ActionListener() {
 
             @Override
-            public void keyTyped(KeyEvent e) {
-                currentChangeToolKey.setText("Change Tool Key: " + e.getKeyChar());
-                gPanel.setChangeToolKey(Character.toString(e.getKeyChar()));
-                removeKeyListener();
-            }
-    
-            @Override
-            public void keyPressed(KeyEvent e) {
-                throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
-            }
-    
-            @Override
-            public void keyReleased(KeyEvent e) {
-                throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
+            public void actionPerformed(ActionEvent e) {
+                mFrame.setFocusable(true);
+                mFrame.addKeyListener(cToolKeyListener);
+                mFrame.requestFocus();
+                System.out.println("Working");
             }
             
-            private void removeKeyListener(){
-                currentChangeToolKey.removeKeyListener(this);
-            }
-        };
-
+        });
     }
 }

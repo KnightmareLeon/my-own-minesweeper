@@ -14,8 +14,9 @@ public class SettingsPanel extends MenuPanel{
     public SettingsPanel(MainFrame mFrame, GamePanel gPanel){
         this.mMButton = new MainMenuButton(mFrame);
         this.currentChangeToolKey = new JLabel("Change Tool Key: " + gPanel.getChangeToolKey());
-        this.cToolKeyButton = new ChangeToolKeyButton(currentChangeToolKey, gPanel);
+        this.cToolKeyButton = new ChangeToolKeyButton(mFrame, currentChangeToolKey, gPanel);
         this.addComponent(currentChangeToolKey);
+        this.addComponent(cToolKeyButton);
         this.addComponent(mMButton);
         this.setUpFont(this);
     }
