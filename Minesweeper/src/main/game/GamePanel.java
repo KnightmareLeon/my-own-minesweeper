@@ -172,9 +172,9 @@ public class GamePanel extends DefaultPanel{
 
     public Thread getTimer(){return this.timer;}
 
-    public int getChangeToolKey(){return this.changeToolKeyCode;}
+    public int getChangeToolKeyCode(){return this.changeToolKeyCode;}
 
-    public void setChangeToolKey(int changeToolKeyCode){this.changeToolKeyCode = changeToolKeyCode;}
+    public void setChangeToolKeyCode(int changeToolKeyCode){this.changeToolKeyCode = changeToolKeyCode;}
     
     public void setUp(byte difficulty){
         if(!gameStart){timer.start();}
