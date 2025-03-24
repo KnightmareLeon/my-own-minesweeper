@@ -73,7 +73,7 @@ public class GamePanel extends DefaultPanel{
     private byte tool = 0;
     private int totalClickedButtons = 0;
     private int seconds = 0;
-    private String changeToolKey = "SPACE";
+    private int changeToolKeyCode = 32;
 
     private Thread timer = new Thread(() -> {
         while(gameStart){
@@ -147,7 +147,7 @@ public class GamePanel extends DefaultPanel{
         this.add(bottomPanel, BorderLayout.SOUTH);
 
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-            KeyStroke.getKeyStroke(changeToolKey), 
+            KeyStroke.getKeyStroke(changeToolKeyCode, 0), 
             "change tool");
         this.getActionMap().put("change tool", new AbstractAction() {
 
@@ -172,9 +172,9 @@ public class GamePanel extends DefaultPanel{
 
     public Thread getTimer(){return this.timer;}
 
-    public String getChangeToolKey(){return this.changeToolKey;}
+    public int getChangeToolKey(){return this.changeToolKeyCode;}
 
-    public void setChangeToolKey(String changeToolKey){this.changeToolKey = changeToolKey;}
+    public void setChangeToolKey(int changeToolKeyCode){this.changeToolKeyCode = changeToolKeyCode;}
     
     public void setUp(byte difficulty){
         if(!gameStart){timer.start();}

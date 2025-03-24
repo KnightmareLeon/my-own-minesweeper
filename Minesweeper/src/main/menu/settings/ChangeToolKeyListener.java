@@ -27,11 +27,10 @@ public class ChangeToolKeyListener extends KeyAdapter {
         int keyCode = e.getKeyCode();
         if(keyCode >= 32 && keyCode <= 126){
             System.out.println(e.getKeyCode());
-            String newChangeToolKey = KeyEvent.getKeyText(keyCode).toUpperCase().replaceAll(" ", "");
-            currentChangeToolKey.setText("Change Tool Key: " + newChangeToolKey);
-            gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).remove(KeyStroke.getKeyStroke(gPanel.getChangeToolKey()));
-            gPanel.setChangeToolKey(newChangeToolKey);
-            gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(newChangeToolKey), "change tool");
+            currentChangeToolKey.setText("Change Tool Key: " + KeyEvent.getKeyText(keyCode));
+            gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).remove(KeyStroke.getKeyStroke(gPanel.getChangeToolKey(), 0));
+            gPanel.setChangeToolKey(keyCode);
+            gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyCode, 0), "change tool");
             removeSelf();
         }
     }
