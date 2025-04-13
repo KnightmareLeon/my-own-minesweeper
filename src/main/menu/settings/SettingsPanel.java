@@ -11,6 +11,7 @@ import main.menu.MenuPanel;
 
 public class SettingsPanel extends MenuPanel{
     private JLabel currentChangeToolKey;
+    private JLabel volume = new JLabel("Volume:");
     private ChangeToolKeyButton cToolKeyButton;
     private MainMenuButton mMButton;
     public SettingsPanel(MainFrame mFrame, GamePanel gPanel){
@@ -20,6 +21,7 @@ public class SettingsPanel extends MenuPanel{
         this.cToolKeyButton = new ChangeToolKeyButton(mFrame, currentChangeToolKey, gPanel);
         this.addComponent(currentChangeToolKey);
         this.addComponent(cToolKeyButton);
+        this.addComponent(volume);
         this.addComponent(mMButton);
         this.setUpFont(this);
     }
