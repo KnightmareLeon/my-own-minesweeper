@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -37,4 +38,25 @@ public class Sound {
             e.printStackTrace();
         }
     }
+
+    public void playButtonSound(){
+        buttonAudioClip.setFramePosition(0);
+        buttonAudioClip.start();
+    }
+
+    public void playMineSound(){
+        mineAudioClip.setFramePosition(0);
+        mineAudioClip.start();
+    }
+
+    public void setVolume(float volume){
+        if (volume < 0f || volume > 1f){
+            throw new IllegalArgumentException("Volume not valid: " + volume);
+        }
+        FloatControl buttonGainControl = (FloatControl) buttonAudioClip.getControl(FloatControl.Type.MASTER_GAIN);
+        FloatControl mineGainControl = (FloatControl) mineAudioClip.getControl(FloatControl.Type.MASTER_GAIN);        
+        buttonGainControl.setValue(20f * (float) Math.log10(volume));
+        mineGainControl.setValue(20f * (float) Math.log10(volume));
+    }
+
 }
