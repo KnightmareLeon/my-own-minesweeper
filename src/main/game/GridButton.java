@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.plaf.metal.MetalButtonUI;
 
 import main.defaults.DefaultButton;
+import main.sound.Sound;
 
 public class GridButton extends DefaultButton{
     private boolean mine = false; 
@@ -22,7 +23,8 @@ public class GridButton extends DefaultButton{
     private Image mineImage;
     private Image flagImage;
 
-    public GridButton(GamePanel gPanel, byte row, byte col){
+    public GridButton(GamePanel gPanel, byte row, byte col, Sound sound){
+        super(sound);
         this.row = row;
         this.col = col;
         this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));

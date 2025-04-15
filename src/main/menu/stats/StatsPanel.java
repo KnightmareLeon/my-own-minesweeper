@@ -12,6 +12,7 @@ import main.frames.MainFrame;
 import main.game.GamePanel;
 import main.menu.MainMenuButton;
 import main.menu.MenuPanel;
+import main.sound.Sound;
 
 public class StatsPanel extends MenuPanel{
     private final String STATS_FILE_PATH = "src/resources/stats/stats.txt";
@@ -27,8 +28,8 @@ public class StatsPanel extends MenuPanel{
     private JLabel easyFastestTimeLabel, normalFastestTimeLabel, hardFastestTimeLabel;
 
     private MainMenuButton back;
-    public StatsPanel(MainFrame mFrame){
-        back = new MainMenuButton(mFrame);
+    public StatsPanel(MainFrame mFrame, Sound sound){
+        back = new MainMenuButton(mFrame, sound);
         statsFile = new File(STATS_FILE_PATH);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(statsFile));

@@ -6,10 +6,12 @@ import javax.swing.BorderFactory;
 
 import main.defaults.DefaultButton;
 import main.frames.MainFrame;
+import main.sound.Sound;
 
 public abstract class MenuButton extends DefaultButton{
     private MainFrame mFrame;
-    public MenuButton(MainFrame mFrame){
+    public MenuButton(MainFrame mFrame, Sound sound){
+        super(sound);
         this.mFrame = mFrame;
         this.setPreferredSize(new Dimension(500,90));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));

@@ -6,10 +6,11 @@ import java.awt.event.ActionListener;
 import main.frames.MainFrame;
 import main.game.GamePanel;
 import main.menu.MenuButton;
+import main.sound.Sound;
 
 public class ContinueGameButton extends MenuButton{
-    public ContinueGameButton(MainFrame mFrame, GamePanel gPanel){
-        super(mFrame);
+    public ContinueGameButton(MainFrame mFrame, GamePanel gPanel, Sound sound){
+        super(mFrame, sound);
         this.setText("Continue Game");
         this.addActionListener(new ActionListener() {
             @Override

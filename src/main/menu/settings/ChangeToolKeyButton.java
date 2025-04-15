@@ -8,11 +8,12 @@ import javax.swing.JLabel;
 import main.frames.MainFrame;
 import main.game.GamePanel;
 import main.menu.MenuButton;
+import main.sound.Sound;
 
 public class ChangeToolKeyButton extends MenuButton{
     private ChangeToolKeyListener cToolKeyListener;
-    public ChangeToolKeyButton(MainFrame mFrame, JLabel currentChangeToolKey, GamePanel gPanel){
-        super(mFrame);
+    public ChangeToolKeyButton(MainFrame mFrame, JLabel currentChangeToolKey, GamePanel gPanel, Sound sound){
+        super(mFrame, sound);
         cToolKeyListener = new ChangeToolKeyListener(mFrame, currentChangeToolKey, gPanel);
         this.setText("Change Tool Key");
         this.addActionListener(new ActionListener() {

@@ -5,10 +5,11 @@ import java.awt.event.ActionListener;
 
 import main.frames.MainFrame;
 import main.game.GamePanel;
+import main.sound.Sound;
 
 public class StartHardGameButton extends StartNewGameButton{
-    public StartHardGameButton(MainFrame mFrame, GamePanel gamePanel){
-        super(mFrame, gamePanel);
+    public StartHardGameButton(MainFrame mFrame, GamePanel gamePanel, Sound sound){
+        super(mFrame, gamePanel, sound);
         this.setText("Hard");
         this.addActionListener(new ActionListener() {
             @Override

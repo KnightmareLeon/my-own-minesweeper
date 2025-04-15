@@ -5,10 +5,11 @@ import java.awt.event.ActionListener;
 
 import main.frames.MainFrame;
 import main.menu.MenuButton;
+import main.sound.Sound;
 
 public class NewGameButton extends MenuButton{
-    public NewGameButton(MainFrame mFrame){
-        super(mFrame);
+    public NewGameButton(MainFrame mFrame, Sound sound){
+        super(mFrame, sound);
         this.setText("New Game");
         this.addActionListener(new ActionListener() {
 

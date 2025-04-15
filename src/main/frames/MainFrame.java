@@ -12,13 +12,16 @@ import main.menu.main.MainMenuPanel;
 import main.menu.settings.SettingsPanel;
 import main.menu.start.StartNewGameMenuPanel;
 import main.menu.stats.StatsPanel;
+import main.sound.Sound;
 
 public class MainFrame extends JFrame{
-    private StatsPanel sPanel = new StatsPanel(this);
-    private GamePanel gPanel = new GamePanel(this, sPanel);
-    private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel);
-    private MainMenuPanel mMPanel = new MainMenuPanel(this, gPanel);
-    private SettingsPanel setPanel = new SettingsPanel(this, gPanel);
+
+    private Sound sound = new Sound();
+    private StatsPanel sPanel = new StatsPanel(this, sound);
+    private GamePanel gPanel = new GamePanel(this, sPanel, sound);
+    private StartNewGameMenuPanel sGMPanel = new StartNewGameMenuPanel(this, gPanel, sound);
+    private MainMenuPanel mMPanel = new MainMenuPanel(this, gPanel, sound);
+    private SettingsPanel setPanel = new SettingsPanel(this, gPanel, sound);
 
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final int WINDOW_SIZE = toolkit.getScreenSize().height - 50;

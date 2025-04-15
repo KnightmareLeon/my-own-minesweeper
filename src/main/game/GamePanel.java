@@ -29,11 +29,13 @@ import main.frames.MainFrame;
 import main.menu.MainMenuButton;
 import main.menu.main.NewGameButton;
 import main.menu.stats.StatsPanel;
+import main.sound.Sound;
 
 public class GamePanel extends DefaultPanel{
     
     private MainFrame mFrame;
     private StatsPanel sPanel;
+    private Sound sound;
 
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
     private Image shovelImage = toolkit.getImage("src/resources/images/Shovel.gif");
@@ -104,14 +106,14 @@ public class GamePanel extends DefaultPanel{
     public static final byte NORMAL = 1;
     public static final byte HARD = 2; 
     
-    public GamePanel(MainFrame mFrame, StatsPanel sPanel){
+    public GamePanel(MainFrame mFrame, StatsPanel sPanel, Sound sound){
         this.mFrame = mFrame;
         this.sPanel = sPanel;
-        
+        this.sound = sound;
         this.setLayout(new BorderLayout());
         
-        this.mainMenuButton = new MainMenuButton(mFrame);
-        this.newGameButton = new NewGameButton(mFrame);
+        this.mainMenuButton = new MainMenuButton(mFrame, sound);
+        this.newGameButton = new NewGameButton(mFrame, sound);
         
         this.mainMenuButton.setPreferredSize(new Dimension(100, 50));
         this.newGameButton.setPreferredSize(new Dimension(100, 50));
@@ -200,7 +202,7 @@ public class GamePanel extends DefaultPanel{
         this.gridPanel.setLayout(grid);
         for(byte row = 0; row < size; row++){
             for(byte col = 0; col < size; col++){
-                this.buttons[row][col] = new GridButton(this, row, col);
+                this.buttons[row][col] = new GridButton(this, row, col, sound);
                 this.gridPanel.add(buttons[row][col]);
                 this.buttons[row][col].setFlagImage(flagImage, size);
             }
