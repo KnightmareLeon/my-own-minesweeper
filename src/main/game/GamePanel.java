@@ -9,14 +9,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
@@ -61,10 +54,6 @@ public class GamePanel extends DefaultPanel{
 
     private Cursor shovelCursor;
     private Cursor flagCursor;
-
-    private File mineSound;
-    private AudioInputStream mineAudioStream;
-    private Clip mineAudioClip;
 
     private boolean gameStart = false;
     private boolean gameOver = false;
@@ -328,7 +317,7 @@ public class GamePanel extends DefaultPanel{
     }
 
     public void gameOver(){
-        this.playMineSound();
+        sound.playMineSound();
         for(byte row = 0; row < buttons.length; row++){
             for(byte col = 0; col < buttons.length; col++){
                 if(buttons[row][col].hasMine()){
@@ -352,18 +341,6 @@ public class GamePanel extends DefaultPanel{
         gameOver = true;
         sPanel.incrementWins(difficulty);
         sPanel.setFastestTime(seconds, difficulty);
-    }
-
-    private void playMineSound(){
-        mineSound = new File("src/resources/sounds/explosion-123793.wav");
-        try {
-            mineAudioStream = AudioSystem.getAudioInputStream(mineSound);
-            mineAudioClip = AudioSystem.getClip();
-            mineAudioClip.open(mineAudioStream);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
-        mineAudioClip.start();   
     }
 
 }
