@@ -24,6 +24,7 @@ public class Sound {
     private Clip buttonAudioClip;
     private Clip mineAudioClip;
 
+    private float volume = 1f; // Default 1f
     public Sound() {
         try {
             buttonAudioStream = AudioSystem.getAudioInputStream(buttonSound);
@@ -49,14 +50,20 @@ public class Sound {
         mineAudioClip.start();
     }
 
+    public float getVolume(){
+        return volume;
+    }
+
     public void setVolume(float volume){
         if (volume < 0f || volume > 1f){
             throw new IllegalArgumentException("Volume not valid: " + volume);
         }
+        this.volume = volume;
+        System.out.println(volume);
         FloatControl buttonGainControl = (FloatControl) buttonAudioClip.getControl(FloatControl.Type.MASTER_GAIN);
         FloatControl mineGainControl = (FloatControl) mineAudioClip.getControl(FloatControl.Type.MASTER_GAIN);        
-        buttonGainControl.setValue(20f * (float) Math.log10(volume));
-        mineGainControl.setValue(20f * (float) Math.log10(volume));
+        buttonGainControl.setValue(20f * (float) Math.log10(this.volume));
+        mineGainControl.setValue(20f * (float) Math.log10(this.volume));
     }
 
 }
