@@ -1,2 +1,3 @@
 # my-own-minesweeper
-Contains a Minesweeper game that I am currently working on
+
+A simple Minesweeper game using only Java and Swing. Currently, the game has three difficulties. The game also records the player's fastest time per difficulty.
